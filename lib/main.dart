@@ -74,20 +74,26 @@ class MainApp extends StatelessWidget {
     return Listener(
       behavior: HitTestBehavior.translucent,
       onPointerDown: (_) => inactivity.bump(),
-      child: MaterialApp(
-        scaffoldMessengerKey: SnackbarService().key,
-        theme: themeProvider.themeData,
-        debugShowCheckedModeBanner: false,
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        onGenerateRoute: RouteGenerator.generateRoutes,
-        navigatorKey: NavigationService.ns.navigatorKey,
-        navigatorObservers: [NavigationService.ns],
-        initialRoute: '/',
-        builder: (context, child) {
-          return NetworkAwareWidget(onlineChild: child);
+      child: PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, result) {
+          // Android geri butonunu devre dışı bırak
         },
+        child: MaterialApp(
+          scaffoldMessengerKey: SnackbarService().key,
+          theme: themeProvider.themeData,
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          onGenerateRoute: RouteGenerator.generateRoutes,
+          navigatorKey: NavigationService.ns.navigatorKey,
+          navigatorObservers: [NavigationService.ns],
+          initialRoute: '/',
+          builder: (context, child) {
+            return NetworkAwareWidget(onlineChild: child);
+          },
+        ),
       ),
     );
   }
