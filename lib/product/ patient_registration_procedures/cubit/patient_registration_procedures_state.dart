@@ -10,6 +10,8 @@ class PatientRegistrationProceduresState {
   final String? totalAmount;
   final bool warningCurrentAppointment;
   final AppointmentsModel? appointmentsModel;
+  final bool isConnettedPos;
+  final bool isRegisrrationWarning;
 
   const PatientRegistrationProceduresState({
     required this.model,
@@ -21,6 +23,8 @@ class PatientRegistrationProceduresState {
     this.totalAmount,
     this.warningCurrentAppointment = false,
     this.appointmentsModel,
+    this.isConnettedPos = true,
+    this.isRegisrrationWarning = false,
   });
 
   PatientRegistrationProceduresState copyWith({
@@ -33,6 +37,8 @@ class PatientRegistrationProceduresState {
     String? totalAmount,
     bool? warningCurrentAppointment,
     AppointmentsModel? appointmentsModel,
+    bool? isConnettedPos,
+    bool? isRegisrrationWarning,
   }) {
     return PatientRegistrationProceduresState(
       startStep: startStep ?? this.startStep,
@@ -45,6 +51,9 @@ class PatientRegistrationProceduresState {
       warningCurrentAppointment:
           warningCurrentAppointment ?? this.warningCurrentAppointment,
       appointmentsModel: appointmentsModel ?? this.appointmentsModel,
+      isConnettedPos: isConnettedPos ?? this.isConnettedPos,
+      isRegisrrationWarning:
+          isRegisrrationWarning ?? this.isRegisrrationWarning,
     );
   }
 }
