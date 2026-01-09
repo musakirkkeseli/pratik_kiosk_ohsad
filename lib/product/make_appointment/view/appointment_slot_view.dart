@@ -11,7 +11,7 @@ import '../cubit/appointment_slot_cubit.dart';
 import '../service/makeAppointmentServices.dart';
 import 'widget/appointment_slot_body_widget.dart';
 
-class AppointmentSlotView extends StatelessWidget {
+class AppointmentSlotView extends StatefulWidget {
   final int doctorId;
   final int departmentId;
   final String doctorName;
@@ -26,14 +26,19 @@ class AppointmentSlotView extends StatelessWidget {
   });
 
   @override
+  State<AppointmentSlotView> createState() => _AppointmentSlotViewState();
+}
+
+class _AppointmentSlotViewState extends State<AppointmentSlotView> {
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AppointmentSlotCubit(
         service: MakeAppointmentService(UserHttpService()),
-        doctorId: doctorId,
-        departmentId: departmentId,
-        doctorName: doctorName,
-        departmentName: departmentName,
+        doctorId: widget.doctorId,
+        departmentId: widget.departmentId,
+        doctorName: widget.doctorName,
+        departmentName: widget.departmentName,
       )..fetchEmptySlots(),
       child: BlocConsumer<AppointmentSlotCubit, AppointmentSlotState>(
         listenWhen: (previous, current) {
@@ -68,10 +73,50 @@ class AppointmentSlotView extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(title: Text(ConstantString().takeAppointment)),
             body: AppointmentSlotBodyWidget(
-              doctorName: doctorName,
-              departmentName: departmentName,
+              doctorName: widget.doctorName,
+              departmentName: widget.departmentName,
               state: state,
             ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            floatingActionButton:
+                (state.slots != null && state.slots!.isNotEmpty)
+                ? Container(
+                    padding: const EdgeInsets.all(20),
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (state.selectedSlotId != null &&
+                            state.selectedSlotId!.isNotEmpty) {
+                          _showConfirmDialog(context);
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        backgroundColor:
+                            state.selectedSlotId != null &&
+                                state.selectedSlotId!.isNotEmpty
+                            ? Theme.of(context).primaryColor
+                            : ConstColor.grey,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: Text(
+                        ConstantString().takeAppointment,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color:
+                              state.selectedSlotId != null &&
+                                  state.selectedSlotId!.isNotEmpty
+                              ? ConstColor.white
+                              : Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ),
+                  )
+                : SizedBox.shrink(),
           );
         },
       ),
@@ -182,6 +227,79 @@ class AppointmentSlotView extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+
+  void _showConfirmDialog(BuildContext context) {
+    final cubit = context.read<AppointmentSlotCubit>();
+
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: Text(
+          ConstantString().confirm,
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildInfoRow(ConstantString().doctorName, widget.doctorName),
+            const SizedBox(height: 12),
+            _buildInfoRow(ConstantString().sectionName, widget.departmentName),
+            const SizedBox(height: 12),
+            _buildInfoRow(ConstantString().date, cubit.selectedDate ?? ''),
+            const SizedBox(height: 12),
+            _buildInfoRow(ConstantString().time, cubit.selectedTime ?? ''),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            child: Text(
+              ConstantString().cancel,
+              style: const TextStyle(fontSize: 16),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(dialogContext).pop();
+              cubit.confirmAppointment();
+            },
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            child: Text(
+              ConstantString().confirm,
+              style: const TextStyle(fontSize: 16),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoRow(String label, String value) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          '$label:',
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            value,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.end,
+          ),
+        ),
+      ],
     );
   }
 }
