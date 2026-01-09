@@ -74,7 +74,7 @@ extension AppTextTheme on BuildContext {
   TextStyle get keypadButtonText => textTheme.bodyMedium!.copyWith(fontSize: 30, fontWeight: FontWeight.w300, color: ConstColor.black);
   
   TextStyle get questionnaireText =>
-      textTheme.bodyMedium!.copyWith(color: ConstColor.black, fontSize: 30);
+      textTheme.bodyMedium!.copyWith(color: ConstColor.black, fontSize: 25);
       
   TextStyle get clearText =>
       textTheme.bodyMedium!.copyWith(fontSize: 18, color: ConstColor.red);
