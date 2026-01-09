@@ -30,6 +30,7 @@ class _HomeViewState extends State<HomeView> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(height: 30),
             CustomAppBar(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40.0),
@@ -66,8 +67,9 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       ),
                       onPressed: () {
-                        UserLoginStatusService()
-                            .logout(reason: SessionEndReason.manual);
+                        UserLoginStatusService().logout(
+                          reason: SessionEndReason.manual,
+                        );
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -109,7 +111,7 @@ class _HomeViewState extends State<HomeView> {
                           style: context.sectionTitle,
                         ),
                         leading: EnumHomeItem.values[index].icon(context),
-                        trailing:EnumHomeItem.values[index].trailing,
+                        trailing: EnumHomeItem.values[index].trailing,
                       ),
                       EnumHomeItem.values[index].widget(),
                     ],
