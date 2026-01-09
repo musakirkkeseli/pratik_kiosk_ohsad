@@ -115,7 +115,7 @@ class PatientRegistrationProceduresCubit
           // updatedModel.doctorName = appointmentsModel.doctorName;
           // updatedModel.departmentId = appointmentsModel.departmentID;
           // updatedModel.departmentName = appointmentsModel.departmentName;
-          // emit(
+          // safeEmit(
           //   state.copyWith(
           //     model: updatedModel,
           //     currentStep: EnumPatientRegistrationProcedures.doctor,
@@ -285,7 +285,7 @@ class PatientRegistrationProceduresCubit
         model.patientId = res.data!.patientId ?? "";
         model.patientTransactionId = res.data!.patientTransactionId.toString();
         fetchPatientPrice(model);
-        // emit(
+        // safeEmit(
         //   state.copyWith(status: EnumGeneralStateStatus.success, model: model),
         // );
         // nextStep();
@@ -601,7 +601,7 @@ class PatientRegistrationProceduresCubit
       // case EnumPatientRegistrationProcedures.patientTransaction:
       //   model.doctorId = null;
       //   model.doctorName = null;
-      //   emit(state.copyWith(model: model));
+      //   safeEmit(state.copyWith(model: model));
       //   break;
       case EnumPatientRegistrationProcedures.payment:
         model.assocationId = null;
