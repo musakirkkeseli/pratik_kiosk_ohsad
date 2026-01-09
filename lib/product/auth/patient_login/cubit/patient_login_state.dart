@@ -25,7 +25,7 @@ class PatientLoginState {
     this.status = EnumGeneralStateStatus.initial,
     this.phoneNumber = "",
     this.otpCode = "",
-    this.tcNo = "41467192600",
+    this.tcNo = "",
     this.birthDate = "",
     this.encryptedUserData,
     this.sliders = const [],
