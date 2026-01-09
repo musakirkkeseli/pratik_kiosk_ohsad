@@ -26,7 +26,7 @@ class _QuestionnaireViewState extends State<QuestionnaireView> {
             style: context.questionnaireText,
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 40),
+          const SizedBox(height: 20),
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -43,18 +43,9 @@ class _QuestionnaireViewState extends State<QuestionnaireView> {
             child: QrImageView(
               data: _formUrl,
               version: QrVersions.auto,
-              size: 150.0,
+              size: 130.0,
               backgroundColor: ConstColor.white,
               errorCorrectionLevel: QrErrorCorrectLevel.H,
-            ),
-          ),
-          const SizedBox(height: 40),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 32.0),
-            child: Text(
-              ConstantString().scanQrToAccessForm,
-              style: context.bodySecondary.copyWith(),
-              textAlign: TextAlign.center,
             ),
           ),
         ],
