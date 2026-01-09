@@ -4,8 +4,6 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/icon_park_solid.dart';
 import 'package:kiosk/features/utility/extension/color_extension.dart';
 import 'package:kiosk/features/utility/extension/text_theme_extension.dart';
-import 'package:kiosk/features/utility/navigation_service.dart';
-import 'package:kiosk/product/auth/patient_login/services/patient_services.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -16,6 +14,7 @@ import '../../../../features/utility/const/constant_string.dart';
 import '../../../../features/utility/custom_input_container.dart';
 import '../../../../features/utility/enum/enum_general_state_status.dart';
 import '../../../../features/utility/enum/enum_textformfield.dart';
+import '../../../../features/utility/navigation_service.dart';
 import '../../../../features/utility/tenant_http_service.dart';
 import '../../../../features/widget/app_dialog.dart';
 import '../../../../features/widget/circular_countdown.dart';
@@ -25,6 +24,7 @@ import '../../../../core/utility/dynamic_theme_provider.dart';
 import '../../../../core/utility/language_manager.dart';
 import '../cubit/patient_login_cubit.dart';
 import '../../../../features/widget/inactivity_warning_dialog.dart';
+import '../services/patient_services.dart';
 import 'widget/virtual_keypad.dart';
 import 'widget/welcome_screen.dart';
 
@@ -247,7 +247,7 @@ class _PatientLoginViewState extends State<PatientLoginView> {
                             },
                             child: Text(
                               obscureTcValue && state.tcNo.isNotEmpty
-                                  ? '*' * state.tcNo.length
+                                  ? obscureTcText(state.tcNo)
                                   : state.tcNo,
                               textAlign: TextAlign.center,
                               style: context.tcLoginText,
@@ -441,6 +441,21 @@ class _PatientLoginViewState extends State<PatientLoginView> {
           ],
         );
     }
+  }
+
+  String obscureTcText(String tcNo) {
+    MyLog("obscureTcText").d("tcNo: $tcNo");
+    int tcNoLength = 0;
+    if (tcNo.length <= 3) {
+      return tcNo;
+    } else if (tcNo.length > 3 && tcNo.length <= 7) {
+      tcNoLength = tcNo.length - 3;
+      return '${tcNo.substring(0, 3)}${'*' * (tcNoLength)}';
+    } else if (tcNo.length > 7) {
+      tcNoLength = tcNo.length - 3 - (tcNo.length - 8);
+      return '${tcNo.substring(0, 3)}${'*' * (tcNoLength)}${tcNo.substring(8)}';
+    }
+    return "";
   }
 
   continueButton(BuildContext cubitContext, PatientLoginState state) {
