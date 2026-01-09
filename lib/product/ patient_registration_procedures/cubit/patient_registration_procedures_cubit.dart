@@ -51,6 +51,44 @@ class PatientRegistrationProceduresCubit
     );
   }
 
+  checkPosServiceAvailability() async {
+    try {
+      final response = await PosService.instance.pairing();
+
+      if (response.success) {
+        safeEmit(
+          state.copyWith(
+            // status: EnumGeneralStateStatus.success,
+            isConnettedPos: true,
+          ),
+        );
+      } else {
+        safeEmit(
+          state.copyWith(
+            // status: EnumGeneralStateStatus.success,
+            isConnettedPos: false,
+          ),
+        );
+      }
+    } on PosException catch (e) {
+      _log.e('PosException: $e');
+      safeEmit(
+        state.copyWith(
+          // status: EnumGeneralStateStatus.success,
+          isConnettedPos: false,
+        ),
+      );
+    } catch (e) {
+      _log.e('Exception: $e');
+      safeEmit(
+        state.copyWith(
+          // status: EnumGeneralStateStatus.success,
+          isConnettedPos: false,
+        ),
+      );
+    }
+  }
+
   Future<void> selectSection(SectionItems section) async {
     if (section.sectionId != null && section.sectionName != null) {
       safeEmit(state.copyWith(status: EnumGeneralStateStatus.loading));
@@ -65,7 +103,7 @@ class PatientRegistrationProceduresCubit
 
         if (res.success && res.data is AppointmentsModel) {
           AppointmentsModel appointmentsModel = res.data!;
-          emit(
+          safeEmit(
             state.copyWith(
               status: EnumGeneralStateStatus.success,
               warningCurrentAppointment: true,
@@ -86,7 +124,7 @@ class PatientRegistrationProceduresCubit
           // );
           // nextStep();
         } else {
-          emit(
+          safeEmit(
             state.copyWith(
               status: EnumGeneralStateStatus.success,
               model: updatedModel,
@@ -96,7 +134,7 @@ class PatientRegistrationProceduresCubit
         }
       } on NetworkException catch (e) {
         _log.e('postAppointmentByBranch NetworkException: $e');
-        emit(
+        safeEmit(
           state.copyWith(
             status: EnumGeneralStateStatus.success,
             model: updatedModel,
@@ -104,7 +142,7 @@ class PatientRegistrationProceduresCubit
         );
         nextStep();
       } catch (e) {
-        emit(
+        safeEmit(
           state.copyWith(
             status: EnumGeneralStateStatus.success,
             model: updatedModel,
@@ -116,7 +154,7 @@ class PatientRegistrationProceduresCubit
   }
 
   clearWarningCurrentAppointment() {
-    emit(state.copyWith(warningCurrentAppointment: false));
+    safeEmit(state.copyWith(warningCurrentAppointment: false));
   }
 
   continueWithAppointment() {
@@ -128,7 +166,7 @@ class PatientRegistrationProceduresCubit
       updatedModel.doctorName = appointmentsModel.doctorName;
       updatedModel.departmentId = appointmentsModel.departmentID;
       updatedModel.departmentName = appointmentsModel.departmentName;
-      emit(
+      safeEmit(
         state.copyWith(
           model: updatedModel,
           currentStep: EnumPatientRegistrationProcedures.mandatory,
@@ -139,7 +177,7 @@ class PatientRegistrationProceduresCubit
   }
 
   clearAppointmentsModel() {
-    emit(state.copyWith(appointmentsModel: null));
+    safeEmit(state.copyWith(appointmentsModel: null));
   }
 
   void selectDoctor(DoctorItems section) {
@@ -148,8 +186,8 @@ class PatientRegistrationProceduresCubit
       updatedModel.doctorId = section.doctorId.toString();
       updatedModel.departmentId = section.departmentId.toString();
       updatedModel.departmentName = section.departmentName;
-      updatedModel.doctorName = section.doctorName;
-      emit(state.copyWith(model: updatedModel));
+      updatedModel.doctorName = "${section.doctorTitle} ${section.doctorName}";
+      safeEmit(state.copyWith(model: updatedModel));
       _trackButton('select_doctor');
       fetchAssociations();
     }
@@ -168,7 +206,7 @@ class PatientRegistrationProceduresCubit
             updatedModel.assocationId = section.assocationId ?? "";
             updatedModel.assocationName = section.assocationName;
             updatedModel.gssAssocationId = section.gssAssocationId ?? "";
-            emit(
+            safeEmit(
               state.copyWith(
                 status: EnumGeneralStateStatus.success,
                 model: updatedModel,
@@ -187,7 +225,7 @@ class PatientRegistrationProceduresCubit
           safeEmit(
             state.copyWith(
               status: EnumGeneralStateStatus.failure,
-              message: "Sigorta türünüz bulunamadı.",
+              message: ConstantString().insuranceTypeNotFound,
             ),
           );
         }
@@ -257,6 +295,7 @@ class PatientRegistrationProceduresCubit
           state.copyWith(
             status: EnumGeneralStateStatus.failure,
             message: res.message,
+            isRegisrrationWarning: true,
           ),
         );
       }
@@ -266,6 +305,7 @@ class PatientRegistrationProceduresCubit
         state.copyWith(
           status: EnumGeneralStateStatus.failure,
           message: e.message,
+          isRegisrrationWarning: true,
         ),
       );
     } catch (e) {
@@ -274,9 +314,14 @@ class PatientRegistrationProceduresCubit
         state.copyWith(
           status: EnumGeneralStateStatus.failure,
           message: ConstantString().errorOccurred,
+          isRegisrrationWarning: true,
         ),
       );
     }
+  }
+
+  isRegisrrationWarningCleared() {
+    safeEmit(state.copyWith(isRegisrrationWarning: false));
   }
 
   Future<void> fetchPatientPrice(
@@ -292,7 +337,7 @@ class PatientRegistrationProceduresCubit
             patientContent is PatientContent) {
           model.patientContent = patientContent;
           model.paymentContentList = paymentContentList;
-          emit(
+          safeEmit(
             state.copyWith(
               status: EnumGeneralStateStatus.success,
               model: model,
@@ -344,7 +389,7 @@ class PatientRegistrationProceduresCubit
           paymentContent: updatedModel.paymentContentList,
         );
     updatedModel.patientPriceDetailModel = patientPriceDetailModel;
-    emit(state.copyWith(model: updatedModel));
+    safeEmit(state.copyWith(model: updatedModel));
     final totalAmount =
         patientPriceDetailModel.patientContent?.totalPrice ?? "0";
     AnalyticsService().trackPaymentScreenOpened(
@@ -532,7 +577,7 @@ class PatientRegistrationProceduresCubit
     final currentStep = state.currentStep;
     if (currentStep.index <
         EnumPatientRegistrationProcedures.values.length - 1) {
-      emit(
+      safeEmit(
         state.copyWith(
           currentStep:
               EnumPatientRegistrationProcedures.values[currentStep.index + 1],
@@ -551,7 +596,7 @@ class PatientRegistrationProceduresCubit
       case EnumPatientRegistrationProcedures.doctor:
         model.branchId = null;
         model.branchName = null;
-        emit(state.copyWith(model: model));
+        safeEmit(state.copyWith(model: model));
         break;
       // case EnumPatientRegistrationProcedures.patientTransaction:
       //   model.doctorId = null;
@@ -561,20 +606,20 @@ class PatientRegistrationProceduresCubit
       case EnumPatientRegistrationProcedures.payment:
         model.assocationId = null;
         model.assocationName = null;
-        emit(state.copyWith(model: model));
+        safeEmit(state.copyWith(model: model));
         break;
       case EnumPatientRegistrationProcedures.mandatory:
         model.assocationId = null;
         model.assocationName = null;
         model.doctorId = null;
         model.doctorName = null;
-        emit(state.copyWith(model: model));
+        safeEmit(state.copyWith(model: model));
         break;
       case EnumPatientRegistrationProcedures.price:
         break;
     }
     if (currentStep.index > 0) {
-      emit(
+      safeEmit(
         state.copyWith(
           currentStep:
               EnumPatientRegistrationProcedures.values[currentStep.index - 1],
