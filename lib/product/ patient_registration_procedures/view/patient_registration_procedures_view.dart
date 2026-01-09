@@ -13,6 +13,7 @@ import '../cubit/patient_registration_procedures_cubit.dart';
 import '../model/patient_registration_procedures_request_model.dart';
 import '../service/patient_registration_procedures_service.dart';
 import 'widget/payment_result_widget.dart';
+import 'widget/patient_pos_pairing_warning_widget.dart';
 import 'widget/procedures_widget.dart';
 
 class PatientRegistrationProceduresView extends StatelessWidget {
@@ -31,7 +32,7 @@ class PatientRegistrationProceduresView extends StatelessWidget {
         service: PatientRegistrationProceduresService(UserHttpService()),
         startStep: startStep,
         model: model,
-      ),
+      )..checkPosServiceAvailability(),
       child:
           BlocConsumer<
             PatientRegistrationProceduresCubit,
@@ -73,9 +74,25 @@ class PatientRegistrationProceduresView extends StatelessWidget {
                   break;
                 case EnumGeneralStateStatus.failure:
                   NavigationService.ns.goBack();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(state.message ?? 'Error')),
-                  );
+                  switch (state.isRegisrrationWarning) {
+                    case true:
+                      AppDialog(context).infoDialog(
+                        ConstantString().pleaseProceedToPatientAdmission,
+                        state.message ?? 'Error',
+                        firstActionText: ConstantString().ok,
+                        firstOnPressed: () {
+                          NavigationService.ns.goBack();
+                        },
+                        afterFunc: (onValue) => context
+                            .read<PatientRegistrationProceduresCubit>()
+                            .isRegisrrationWarningCleared(),
+                      );
+                      break;
+                    default:
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(state.message ?? 'Error')),
+                      );
+                  }
                   break;
                 default:
               }
@@ -96,6 +113,9 @@ class PatientRegistrationProceduresView extends StatelessWidget {
         sectionName: state.model.branchName,
         transactionId: state.model.patientTransactionId,
       );
+    }
+    if (state.isConnettedPos == false) {
+      return const PatientPosPairingWarningWidget();
     }
     return ProceduresWidget(
       iColor: ConstColor.grey300,

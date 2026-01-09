@@ -47,136 +47,128 @@ class ProceduresWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  SizedBox(
-                    height: 150,
-                    width: double.infinity,
-                    child: LayoutBuilder(
-                      builder: (context, constraints) {
-                        final count =
-                            EnumPatientRegistrationProcedures.values.length;
-                        final tileWidth = constraints.maxWidth / count;
-                        return FixedTimeline.tileBuilder(
-                          theme: TimelineThemeData(
-                            direction: Axis.horizontal,
-                            nodePosition: 0.5,
-                            connectorTheme: ConnectorThemeData(
-                              thickness: 8,
-                              color: context.primaryColor,
-                            ),
-                            indicatorTheme: IndicatorThemeData(
-                              size: 26,
-                              color: context.primaryColor,
-                            ),
-                          ),
-                          builder: TimelineTileBuilder.connected(
-                            connectionDirection: ConnectionDirection.before,
-                            itemCount: count,
-                            itemExtent: tileWidth,
-                            indicatorBuilder: (_, index) {
-                              final reached = index <= currentStep.index;
-                              final reachedDone =
-                                  index <= currentStep.index - 1;
-                              return AnimatedScale(
-                                scale: reached ? 1.0 : 0.95,
-                                duration: const Duration(milliseconds: 500),
-                                curve: Curves.easeInOutCubic,
-                                child: DotIndicator(
-                                  size: reached ? 34 : 30,
-                                  color: reached
-                                      ? context.primaryColor
-                                      : iColor,
-                                  child: AnimatedSwitcher(
-                                    duration: const Duration(milliseconds: 350),
-                                    transitionBuilder: (child, anim) =>
-                                        FadeTransition(
-                                          opacity: anim,
-                                          child: child,
-                                        ),
-                                    child: Icon(
-                                      reachedDone ? Icons.check : Icons.circle,
-                                      key: ValueKey<bool>(reachedDone),
-                                      size: 20,
-                                      color: ConstColor.white,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                            connectorBuilder: (_, index, __) {
-                              final filled = index <= currentStep.index;
-                              return TweenAnimationBuilder<Color?>(
-                                duration: const Duration(milliseconds: 600),
-                                curve: Curves.easeInOutCubic,
-                                tween: ColorTween(
-                                  begin: context.primaryColor,
-                                  end: filled ? context.primaryColor : iColor,
-                                ),
-                                builder: (context, color, _) =>
-                                    SolidLineConnector(color: color),
-                              );
-                            },
-                            contentsBuilder: (context, index) {
-                              final reached = index <= currentStep.index;
-                              final label = EnumPatientRegistrationProcedures
-                                  .values[index]
-                                  .label;
-                              final baseStyle =
-                                  textTheme.labelMedium ??
-                                  context.caption;
-                              final targetStyle = baseStyle.copyWith(
-                                fontWeight: reached
-                                    ? FontWeight.w600
-                                    : FontWeight.w400,
-                                color: reached
-                                    ? context.primaryColor
-                                    : ConstColor.grey,
-                              );
-                              final content = Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const SizedBox(height: 12),
-                                  AnimatedOpacity(
-                                    duration: const Duration(milliseconds: 450),
-                                    opacity: reached ? 1.0 : 0.7,
-                                    child: AnimatedDefaultTextStyle(
-                                      duration: const Duration(
-                                        milliseconds: 450,
-                                      ),
-                                      style: targetStyle,
-                                      child: Text(
-                                        label,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 4,
-                                ),
-                                child: content,
-                              );
-                            },
-                            indicatorPositionBuilder: (_, __) => 0.5,
-                            contentsAlign: ContentsAlign.basic,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  _ButtonBar(currentStep: currentStep, startStep: startStep),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height * 0.02,
-                    ),
-                    child: InfoContainerWidget(model: model),
-                  ),
+                  topWidget(context),
                   Expanded(child: currentStep.widget(model)),
                 ],
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  topWidget(BuildContext context) {
+    final bg = Theme.of(context).scaffoldBackgroundColor;
+    return Container(
+      color: bg,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 150,
+            width: double.infinity,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final count = EnumPatientRegistrationProcedures.values.length;
+                final tileWidth = constraints.maxWidth / count;
+                return FixedTimeline.tileBuilder(
+                  theme: TimelineThemeData(
+                    direction: Axis.horizontal,
+                    nodePosition: 0.5,
+                    connectorTheme: ConnectorThemeData(
+                      thickness: 8,
+                      color: context.primaryColor,
+                    ),
+                    indicatorTheme: IndicatorThemeData(
+                      size: 26,
+                      color: context.primaryColor,
+                    ),
+                  ),
+                  builder: TimelineTileBuilder.connected(
+                    connectionDirection: ConnectionDirection.before,
+                    itemCount: count,
+                    itemExtent: tileWidth,
+                    indicatorBuilder: (_, index) {
+                      final reached = index <= currentStep.index;
+                      final reachedDone = index <= currentStep.index - 1;
+                      return AnimatedScale(
+                        scale: reached ? 1.0 : 0.95,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeInOutCubic,
+                        child: DotIndicator(
+                          size: reached ? 34 : 30,
+                          color: reached ? context.primaryColor : iColor,
+                          child: AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 350),
+                            transitionBuilder: (child, anim) =>
+                                FadeTransition(opacity: anim, child: child),
+                            child: Icon(
+                              reachedDone ? Icons.check : Icons.circle,
+                              key: ValueKey<bool>(reachedDone),
+                              size: 20,
+                              color: ConstColor.white,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    connectorBuilder: (_, index, __) {
+                      final filled = index <= currentStep.index;
+                      return TweenAnimationBuilder<Color?>(
+                        duration: const Duration(milliseconds: 600),
+                        curve: Curves.easeInOutCubic,
+                        tween: ColorTween(
+                          begin: context.primaryColor,
+                          end: filled ? context.primaryColor : iColor,
+                        ),
+                        builder: (context, color, _) =>
+                            SolidLineConnector(color: color),
+                      );
+                    },
+                    contentsBuilder: (context, index) {
+                      final reached = index <= currentStep.index;
+                      final label =
+                          EnumPatientRegistrationProcedures.values[index].label;
+                      final baseStyle =
+                          textTheme.labelMedium ?? context.caption;
+                      final targetStyle = baseStyle.copyWith(
+                        fontWeight: reached ? FontWeight.w600 : FontWeight.w400,
+                        color: reached ? context.primaryColor : ConstColor.grey,
+                      );
+                      final content = Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SizedBox(height: 12),
+                          AnimatedOpacity(
+                            duration: const Duration(milliseconds: 450),
+                            opacity: reached ? 1.0 : 0.7,
+                            child: AnimatedDefaultTextStyle(
+                              duration: const Duration(milliseconds: 450),
+                              style: targetStyle,
+                              child: Text(label, textAlign: TextAlign.center),
+                            ),
+                          ),
+                        ],
+                      );
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: content,
+                      );
+                    },
+                    indicatorPositionBuilder: (_, __) => 0.5,
+                    contentsAlign: ContentsAlign.basic,
+                  ),
+                );
+              },
+            ),
+          ),
+          const SizedBox(height: 10),
+          _ButtonBar(currentStep: currentStep, startStep: startStep),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).size.height * 0.02,
+            ),
+            child: InfoContainerWidget(model: model),
           ),
         ],
       ),
@@ -267,8 +259,9 @@ class _ButtonBar extends StatelessWidget {
                   'cancel_registration_flow',
                   screenName: 'patient_registration',
                 );
-                UserLoginStatusService()
-                    .logout(reason: SessionEndReason.manual);
+                UserLoginStatusService().logout(
+                  reason: SessionEndReason.manual,
+                );
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
