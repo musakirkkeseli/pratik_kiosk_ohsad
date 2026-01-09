@@ -31,6 +31,7 @@ class _HospitalLoginWidgetState extends State<HospitalLoginWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: ConstColor.white,
       body: Stack(
         children: [
@@ -111,17 +112,13 @@ class _HospitalLoginWidgetState extends State<HospitalLoginWidget> {
                           },
                         ),
                         // const PdfTestButton(),
+                        Center(child: Text(widget.deviceId)),
                       ],
                     ),
                   ),
                 ),
               ),
             ],
-          ),
-          Positioned(
-            bottom: 40,
-            width: MediaQuery.of(context).size.width,
-            child: Center(child: Text(widget.deviceId)),
           ),
         ],
       ),

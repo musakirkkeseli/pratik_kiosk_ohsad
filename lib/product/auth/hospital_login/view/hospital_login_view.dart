@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kiosk/features/utility/enum/enum_general_state_status.dart';
 import 'package:kiosk/product/auth/hospital_login/view/widget/hospital_login_widget.dart';
+import 'package:kiosk/product/auth/hospital_login/view/widget/pos_configuration_widget.dart';
 
 import '../../../../core/utility/device_info_service.dart';
 import '../../../../core/widget/snackbar_service.dart';
@@ -78,6 +79,8 @@ class _HospitalLoginViewState extends State<HospitalLoginView> {
     switch (state.loginStatus) {
       case EnumHospitalLoginStatus.login:
         return HospitalLoginWidget(deviceId: _deviceId ?? "");
+      case EnumHospitalLoginStatus.posConfiguration:
+        return PosConfigurationWidget(posConfig: state.posConfig);
       case EnumHospitalLoginStatus.config:
         return ConfigWidget();
     }
