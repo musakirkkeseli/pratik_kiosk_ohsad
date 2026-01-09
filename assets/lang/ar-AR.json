@@ -137,5 +137,13 @@
   "appointmentSuccessfullyBooked": "تم حجز موعدك بنجاح!",
   "error": "خطأ",
   "patientNotFound": "لم يتم العثور على المريض في نظام تسجيل المستشفى. يرجى التقدم إلى قسم قبول المرضى.",
-  "profDrRecords": "للحصول على سجلات البروفيسور الدكتور، يرجى التقدم إلى قسم قبول المرضى."
+  "profDrRecords": "للحصول على سجلات البروفيسور الدكتور، يرجى التقدم إلى قسم قبول المرضى.",
+  "paymentTemporarilyUnavailable": "خدمة الدفع غير متاحة مؤقتًا",
+  "paymentSystemConnectionError": "لا يمكننا المتابعة في معاملتك حيث لا يمكننا الاتصال بنظام الدفع في الوقت الحالي.",
+  "pleaseContactReception": "يرجى الاتصال بالاستقبال لإجراء معاملات التسجيل والدفع الخاصة بك.",
+  "technicalTeamWorking": "الفريق الفني يعمل على المشكلة.",
+  "thankYouForUnderstanding": "شكرا لتفهمك.",
+  "goBack": "العودة",
+  "insuranceTypeNotFound": "لم يتم العثور على نوع التأمين الخاص بك.",
+  "unexpectedError": "خطأ غير متوقع"
 }

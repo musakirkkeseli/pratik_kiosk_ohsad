@@ -136,5 +136,13 @@
   "appointmentSuccessfullyBooked": "Your appointment has been successfully booked!",
   "error": "Error",
   "patientNotFound": "Patient not found in the Hospital Registration System. Please apply to Patient Admission.",
-  "profDrRecords": "For Prof. Dr. records, please apply to Patient Admission."
+  "profDrRecords": "For Prof. Dr. records, please apply to Patient Admission.",
+  "paymentTemporarilyUnavailable": "Payment Service Temporarily Unavailable",
+  "paymentSystemConnectionError": "We are unable to proceed with your transaction as we cannot connect to the payment system at this time.",
+  "pleaseContactReception": "Please contact the reception for your registration and payment transactions.",
+  "technicalTeamWorking": "The technical team is working on the issue.",
+  "thankYouForUnderstanding": "Thank you for your understanding.",
+  "goBack": "Go Back",
+  "insuranceTypeNotFound": "Your insurance type was not found.",
+  "unexpectedError": "Unexpected error"
 }

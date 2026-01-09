@@ -144,4 +144,12 @@ abstract class LocaleKeys {
   static const error = 'error';
   static const patientNotFound = 'patientNotFound';
   static const profDrRecords = 'profDrRecords';
+  static const paymentTemporarilyUnavailable = 'paymentTemporarilyUnavailable';
+  static const paymentSystemConnectionError = 'paymentSystemConnectionError';
+  static const pleaseContactReception = 'pleaseContactReception';
+  static const technicalTeamWorking = 'technicalTeamWorking';
+  static const thankYouForUnderstanding = 'thankYouForUnderstanding';
+  static const goBack = 'goBack';
+  static const insuranceTypeNotFound = 'insuranceTypeNotFound';
+  static const unexpectedError = 'unexpectedError';
 }

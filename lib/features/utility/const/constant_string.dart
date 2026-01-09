@@ -196,4 +196,15 @@ class ConstantString {
   String error = LocaleKeys.error.locale;
   String patientNotFound = LocaleKeys.patientNotFound.locale;
   String profDrRecords = LocaleKeys.profDrRecords.locale;
+  String paymentTemporarilyUnavailable =
+      LocaleKeys.paymentTemporarilyUnavailable.locale;
+  String paymentSystemConnectionError =
+      LocaleKeys.paymentSystemConnectionError.locale;
+  String pleaseContactReception = LocaleKeys.pleaseContactReception.locale;
+  String technicalTeamWorking = LocaleKeys.technicalTeamWorking.locale;
+  String thankYouForUnderstanding =
+      LocaleKeys.thankYouForUnderstanding.locale;
+  String goBack = LocaleKeys.goBack.locale;
+  String insuranceTypeNotFound = LocaleKeys.insuranceTypeNotFound.locale;
+  String unexpectedError = LocaleKeys.unexpectedError.locale;
 }
