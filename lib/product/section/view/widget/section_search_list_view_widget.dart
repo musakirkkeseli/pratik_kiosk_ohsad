@@ -19,6 +19,7 @@ class SectionSearchListViewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       shrinkWrap: true,
+      padding: EdgeInsets.only(top: 20),
       itemCount: sectionItemList.length,
       itemBuilder: (context, index) {
         SectionItems section = sectionItemList[index];
