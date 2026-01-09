@@ -203,7 +203,7 @@ class PatientLoginCubit extends BaseCubit<PatientLoginState> {
       safeEmit(
         state.copyWith(
           status: EnumGeneralStateStatus.failure,
-          message: 'Beklenmeyen hata: $e',
+          message: '${ConstantString().errorOccurred}: $e',
         ),
       );
     }
