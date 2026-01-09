@@ -1,10 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:kiosk/features/utility/enum/enum_welcome_feature.dart';
 
 import '../../../../../features/utility/const/constant_color.dart';
 import '../../../../../features/utility/const/constant_string.dart';
+import '../../cubit/patient_login_cubit.dart';
 
 class BouncingBallsPage extends StatefulWidget {
   final Color color;
@@ -151,9 +153,9 @@ class _BouncingBallsPageState extends State<BouncingBallsPage>
                       side: BorderSide(color: widget.color, width: 2),
                     ),
                     onPressed: () {
-                      // try {
-                      //   context.read<PatientLoginCubit>().gotoAuth();
-                      // } catch (_) {}
+                      try {
+                        context.read<PatientLoginCubit>().gotoAuth();
+                      } catch (_) {}
                     },
                     icon: Icon(Icons.play_circle_fill, size: 40),
                     label: Text(
