@@ -4,7 +4,7 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/material_symbols.dart';
 import 'package:kiosk/features/widget/custom_button.dart';
 
-import '../../../ patient_registration_procedures/cubit/patient_registration_procedures_cubit.dart';
+import '../../../patient_registration_procedures/cubit/patient_registration_procedures_cubit.dart';
 import '../../../../features/model/patient_price_detail_model.dart';
 import '../../../../features/utility/const/constant_color.dart';
 import '../../../../features/utility/const/constant_string.dart';

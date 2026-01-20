@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kiosk/product/appointments/view/appointments_view.dart';
 
 import '../../core/widget/login_aware_widget.dart';
-import '../../product/ patient_registration_procedures/view/patient_registration_procedures_view.dart';
+import '../../product/patient_registration_procedures/view/patient_registration_procedures_view.dart';
 import '../../product/doctor/view/doctors_view.dart';
 import '../../product/section/view/section_view.dart';
 

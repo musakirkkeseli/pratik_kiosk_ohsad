@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kiosk/core/utility/logger_service.dart';
 import 'package:kiosk/features/utility/const/constant_string.dart';
 
-import '../../../ patient_registration_procedures/cubit/patient_registration_procedures_cubit.dart';
+import '../../../patient_registration_procedures/cubit/patient_registration_procedures_cubit.dart';
 import '../../../../core/widget/snackbar_service.dart';
 import '../../../../features/widget/item_button.dart';
 import '../../../make_appointment/view/appointment_slot_view.dart';

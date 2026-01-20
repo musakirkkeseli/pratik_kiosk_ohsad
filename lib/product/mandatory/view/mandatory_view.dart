@@ -6,7 +6,7 @@ import 'package:kiosk/features/widget/custom_button.dart';
 import 'package:kiosk/product/mandatory/cubit/mandatory_cubit.dart';
 import 'package:kiosk/product/mandatory/service/mandatory_service.dart';
 
-import '../../ patient_registration_procedures/cubit/patient_registration_procedures_cubit.dart';
+import '../../patient_registration_procedures/cubit/patient_registration_procedures_cubit.dart';
 import '../../../core/model/dropdown_model.dart';
 import '../../../features/utility/const/constant_string.dart';
 import '../../../features/utility/enum/enum_general_state_status.dart';

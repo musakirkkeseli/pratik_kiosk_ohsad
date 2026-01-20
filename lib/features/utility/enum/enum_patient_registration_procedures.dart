@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kiosk/features/utility/const/constant_string.dart';
 
-import '../../../product/ patient_registration_procedures/model/patient_registration_procedures_request_model.dart';
+import '../../../product/patient_registration_procedures/model/patient_registration_procedures_request_model.dart';
 import '../../../product/doctor/view/doctors_view.dart';
 import '../../../product/mandatory/model/mandatory_request_model.dart';
 import '../../../product/mandatory/view/mandatory_view.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kiosk/features/utility/navigation_service.dart';
 import 'package:provider/provider.dart';
 
-import '../../../ patient_registration_procedures/cubit/patient_registration_procedures_cubit.dart';
+import '../../../patient_registration_procedures/cubit/patient_registration_procedures_cubit.dart';
 import '../../../../features/widget/item_button.dart';
 import '../../model/section_model.dart';
 
