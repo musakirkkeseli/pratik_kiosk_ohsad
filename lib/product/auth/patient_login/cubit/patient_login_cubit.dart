@@ -64,7 +64,7 @@ class PatientLoginCubit extends BaseCubit<PatientLoginState> {
     PatientLoginRequestModel patientLoginRequestModel =
         PatientLoginRequestModel(
           encryptedUserData: state.encryptedUserData,
-          otpCode: state.otpCode,
+          otpCode: "000000", //state.otpCode
         );
     try {
       final resp = await service.postUserLogin(patientLoginRequestModel);
@@ -232,6 +232,8 @@ class PatientLoginCubit extends BaseCubit<PatientLoginState> {
               encryptedUserData: encryptedUserData,
             ),
           );
+          await sendOtpCode();
+          await userLogin();
         } else {
           safeEmit(
             state.copyWith(
@@ -296,7 +298,7 @@ class PatientLoginCubit extends BaseCubit<PatientLoginState> {
             state.copyWith(
               status: EnumGeneralStateStatus.success,
               message: resp.message,
-              pageType: PageType.verifySms,
+              // pageType: PageType.verifySms,
             ),
           );
           _startOrResetTimer();
