@@ -12,6 +12,7 @@ class PatientRegistrationProceduresState {
   final AppointmentsModel? appointmentsModel;
   final bool isConnettedPos;
   final bool isRegisrrationWarning;
+  final bool isRequiredAssociationFetch;
 
   const PatientRegistrationProceduresState({
     required this.model,
@@ -25,6 +26,7 @@ class PatientRegistrationProceduresState {
     this.appointmentsModel,
     this.isConnettedPos = true,
     this.isRegisrrationWarning = false,
+    this.isRequiredAssociationFetch = false,
   });
 
   PatientRegistrationProceduresState copyWith({
@@ -39,6 +41,7 @@ class PatientRegistrationProceduresState {
     AppointmentsModel? appointmentsModel,
     bool? isConnettedPos,
     bool? isRegisrrationWarning,
+    bool? isRequiredAssociationFetch,
   }) {
     return PatientRegistrationProceduresState(
       startStep: startStep ?? this.startStep,
@@ -54,6 +57,8 @@ class PatientRegistrationProceduresState {
       isConnettedPos: isConnettedPos ?? this.isConnettedPos,
       isRegisrrationWarning:
           isRegisrrationWarning ?? this.isRegisrrationWarning,
+      isRequiredAssociationFetch:
+          isRequiredAssociationFetch ?? this.isRequiredAssociationFetch,
     );
   }
 }

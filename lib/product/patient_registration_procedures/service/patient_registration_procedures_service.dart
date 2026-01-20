@@ -14,9 +14,12 @@ class PatientRegistrationProceduresService
   PatientRegistrationProceduresService(super.http);
 
   @override
-  Future<ApiListResponse<AssocationModel>> getAssociationList() async {
+  Future<ApiListResponse<AssocationModel>> getAssociationList(
+    String branchId,
+  ) async {
     return http.requestList<AssocationModel>(
-      requestFunction: () => http.get(associationListPath),
+      requestFunction: () =>
+          http.get("$associationListPath?branchId=$branchId"),
       fromJson: (json) => AssocationModel.fromJson(json),
     );
   }

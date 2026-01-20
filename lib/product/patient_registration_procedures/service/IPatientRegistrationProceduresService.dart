@@ -35,7 +35,7 @@ abstract class IPatientRegistrationProceduresService {
   final String appointmentByBranchPath =
       IPatientRegistrationProceduresServicePath.appointmentByBranch.rawValue;
 
-  Future<ApiListResponse<AssocationModel>> getAssociationList();
+  Future<ApiListResponse<AssocationModel>> getAssociationList(String branchId);
   Future<ApiResponse<PatientTransactionCreateResponseModel>>
   postPatientTransactionCreate(PatientTransactionCreateRequestModel request);
   Future<ApiResponse<PatientTransactionRevenueResponseModel>>

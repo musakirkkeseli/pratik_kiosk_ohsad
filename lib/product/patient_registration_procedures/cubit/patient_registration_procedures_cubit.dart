@@ -52,6 +52,7 @@ class PatientRegistrationProceduresCubit
   }
 
   checkPosServiceAvailability() async {
+    _log.d("checkPosServiceAvailability");
     try {
       final response = await PosService.instance.pairing();
 
@@ -193,10 +194,25 @@ class PatientRegistrationProceduresCubit
     }
   }
 
+  void autoSelectDoctor() {
+    if (startStep == EnumPatientRegistrationProcedures.doctor &&
+        state.model.doctorId is String) {
+      final updatedModel = state.model;
+      updatedModel.doctorId = updatedModel.doctorId.toString();
+      updatedModel.departmentId = updatedModel.departmentId.toString();
+      updatedModel.departmentName = updatedModel.departmentName;
+      updatedModel.doctorName = updatedModel.doctorName;
+      safeEmit(state.copyWith(model: updatedModel));
+      _trackButton('select_doctor');
+      fetchAssociations();
+    }
+  }
+
   Future<void> fetchAssociations() async {
+    _log.d("fetchAssociations called");
     safeEmit(state.copyWith(status: EnumGeneralStateStatus.loading));
     try {
-      final res = await service.getAssociationList();
+      final res = await service.getAssociationList(state.model.branchId ?? "");
       if (res.success == true && res.data is List<AssocationModel>) {
         _log.d("patient: $res");
         if ((res.data ?? []).length == 1) {
@@ -226,6 +242,7 @@ class PatientRegistrationProceduresCubit
             state.copyWith(
               status: EnumGeneralStateStatus.failure,
               message: ConstantString().insuranceTypeNotFound,
+              isRegisrrationWarning: true,
             ),
           );
         }
@@ -234,6 +251,7 @@ class PatientRegistrationProceduresCubit
           state.copyWith(
             status: EnumGeneralStateStatus.failure,
             message: res.message,
+            isRegisrrationWarning: true,
           ),
         );
       }
@@ -242,6 +260,7 @@ class PatientRegistrationProceduresCubit
         state.copyWith(
           status: EnumGeneralStateStatus.failure,
           message: e.message,
+          isRegisrrationWarning: true,
         ),
       );
     } catch (e) {
@@ -249,6 +268,7 @@ class PatientRegistrationProceduresCubit
         state.copyWith(
           status: EnumGeneralStateStatus.failure,
           message: ConstantString().errorOccurred,
+          isRegisrrationWarning: true,
         ),
       );
     }
