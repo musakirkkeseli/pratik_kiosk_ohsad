@@ -32,7 +32,6 @@ class ConstantString {
   static const configLoading = "assets/gif/config_loading.json";
   static const settingsGif = "assets/gif/settings_gif.json";
   static const hospitalLogo = "assets/images/pratikLogo.png";
-  static const buharaLogo = "assets/images/buharaLogo.png";
   static const configSetting = "assets/gif/config_setting.json";
   static const paymentLoading = "assets/gif/payment_loading.json";
   static const downloadImage = "assets/images/downloadImage.png";
