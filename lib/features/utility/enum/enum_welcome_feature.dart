@@ -7,7 +7,7 @@ enum WelcomeFeature {
   patientRegistration,
   takeAppointment,
   registerPatientForAppointment,
-  viewTestResults,
+  // viewTestResults,
 }
 
 extension WelcomeFeatureExt on WelcomeFeature {
@@ -20,8 +20,8 @@ extension WelcomeFeatureExt on WelcomeFeature {
         return ConstantString().takeAppointment;
       case WelcomeFeature.registerPatientForAppointment:
         return ConstantString().registerPatientForAppointment;
-      case WelcomeFeature.viewTestResults:
-        return ConstantString().viewTestResults;
+      // case WelcomeFeature.viewTestResults:
+      //   return ConstantString().viewTestResults;
     }
   }
 
@@ -45,8 +45,8 @@ extension WelcomeFeatureExt on WelcomeFeature {
           color: color,
           size: 40,
         );
-      case WelcomeFeature.viewTestResults:
-        return Iconify(MaterialSymbols.list, color: color, size: 40);
+      // case WelcomeFeature.viewTestResults:
+      //   return Iconify(MaterialSymbols.list, color: color, size: 40);
     }
   }
 
@@ -64,8 +64,8 @@ extension WelcomeFeatureExt on WelcomeFeature {
         return const Offset(0.78, 0.30);
       case WelcomeFeature.registerPatientForAppointment:
         return const Offset(0.25, 0.75);
-      case WelcomeFeature.viewTestResults:
-        return const Offset(0.75, 0.75);
+      // case WelcomeFeature.viewTestResults:
+      //   return const Offset(0.75, 0.75);
     }
   }
 
