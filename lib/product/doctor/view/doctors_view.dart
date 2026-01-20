@@ -5,6 +5,7 @@ import 'package:kiosk/features/utility/enum/enum_general_state_status.dart';
 import 'package:kiosk/features/utility/user_http_service.dart';
 
 import '../../../features/utility/const/constant_string.dart';
+import '../../patient_registration_procedures/cubit/patient_registration_procedures_cubit.dart';
 import '../cubit/doctor_search_cubit.dart';
 import '../service/doctor_search_service.dart';
 import 'widget/doctors_search_body_widget.dart';
@@ -23,6 +24,14 @@ class DoctorSearchView extends StatefulWidget {
 }
 
 class _DoctorSearchViewState extends State<DoctorSearchView> {
+  @override
+  void initState() {
+    super.initState();
+    if (!widget.isAppointment) {
+      context.read<PatientRegistrationProceduresCubit>().autoSelectDoctor();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<DoctorSearchCubit>(
