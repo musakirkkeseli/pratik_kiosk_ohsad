@@ -23,7 +23,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Slider'ları yükle
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<PatientLoginCubit>().fetchSliders();
     });
@@ -45,28 +44,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(height: 40),
-
-                  // Logo ve başlık
-                  // _buildHeader(context, primaryColor),
-                  const SizedBox(height: 40),
-
-                  // BAŞLA butonu
+                  const SizedBox(height: 80),
                   _buildStartButton(context, primaryColor),
-
                   const SizedBox(height: 40),
-
-                  // 4 işlem kartı
                   _buildActionCards(primaryColor),
-
-                  const SizedBox(height: 30),
-
-                  // Dil seçimi
+                  const SizedBox(height: 40),
                   LanguageButtonWidget2(cubitContext: context),
-
-                  const SizedBox(height: 30),
-
-                  // QR kod ve uygulama linkleri
+                  const SizedBox(height: 40),
                   _mobilAppQR(qrCodeUrl),
                 ],
               ),
@@ -315,7 +299,7 @@ Widget _buildActionCard(
   bool isHugeIcon = false,
 }) {
   return Container(
-    height: 180, // Yüksekliği artırdık - uzun metinler için
+    height: 180,
     padding: const EdgeInsets.all(16),
     decoration: BoxDecoration(
       color: ConstColor.white,
@@ -336,13 +320,12 @@ Widget _buildActionCard(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-   
         isHugeIcon
             ? HugeIcon(icon: icon, size: 55, color: primaryColor)
             : Icon(icon as IconData, size: 55, color: primaryColor),
         const SizedBox(height: 16),
         SizedBox(
-          height: 60, // Sabit yükseklik - tüm metinler aynı alanda
+          height: 60,
           child: Align(
             alignment: Alignment.topCenter,
             child: Text(
@@ -368,8 +351,6 @@ Widget _slider(BuildContext context) {
   return BlocBuilder<PatientLoginCubit, PatientLoginState>(
     builder: (context, state) {
       final sliders = state.sliders;
-
-      // Slider yoksa varsayılan görseli göster
       if (sliders.isEmpty) {
         return Container(
           height: 200,
@@ -382,7 +363,6 @@ Widget _slider(BuildContext context) {
         );
       }
 
-      // Backend'den gelen slider'ları göster
       return SizedBox(
         height: 200,
         width: double.infinity,
