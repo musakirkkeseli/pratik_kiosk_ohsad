@@ -10,7 +10,7 @@ import '../../../features/utility/enum/enum_general_state_status.dart';
 import '../../../features/utility/enum/enum_patient_registration_procedures.dart';
 import '../../../features/utility/navigation_service.dart';
 import '../../../features/widget/app_dialog.dart';
-import '../../ patient_registration_procedures/model/patient_registration_procedures_request_model.dart';
+import '../../patient_registration_procedures/model/patient_registration_procedures_request_model.dart';
 import '../cubit/appointment_cubit.dart';
 import '../model/appointments_model.dart';
 import 'widget/not_found_appointment.dart';
@@ -140,7 +140,7 @@ class _AppointmentsViewState extends State<AppointmentsView> {
                                   arguments: {
                                     "startStep":
                                         EnumPatientRegistrationProcedures
-                                            .mandatory,
+                                            .doctor,
                                     "model": PatientRegistrationProceduresModel(
                                       branchId: appointment.branchID,
                                       departmentId: appointment.departmentID,
