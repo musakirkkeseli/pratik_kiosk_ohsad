@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:kiosk/features/utility/extension/color_extension.dart';
 import 'package:provider/provider.dart';
 
@@ -9,7 +10,6 @@ import '../../../../../core/widget/custom_image.dart';
 import '../../../../../features/utility/const/constant_color.dart';
 import '../../../../../features/utility/const/constant_string.dart';
 import '../../cubit/patient_login_cubit.dart';
-import 'bouncing_balls_page.dart';
 import 'language_button_widget2.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -33,105 +33,410 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<DynamicThemeProvider>(context);
     final qrCodeUrl = themeProvider.qrCodeUrl;
+    final primaryColor = context.primaryColor;
+
     return Scaffold(
+      backgroundColor: ConstColor.white,
       body: Column(
         children: [
-          SizedBox(height: MediaQuery.paddingOf(context).top),
           _slider(context),
+
           Expanded(
-            child: InkWell(
-              onTap: () {
-                try {
-                  context.read<PatientLoginCubit>().gotoAuth();
-                } catch (_) {}
-              },
-              child: BouncingBallsPage(color: context.primaryColor),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 40),
+
+                  // Logo ve başlık
+                  // _buildHeader(context, primaryColor),
+                  const SizedBox(height: 40),
+
+                  // BAŞLA butonu
+                  _buildStartButton(context, primaryColor),
+
+                  const SizedBox(height: 40),
+
+                  // 4 işlem kartı
+                  _buildActionCards(primaryColor),
+
+                  const SizedBox(height: 30),
+
+                  // Dil seçimi
+                  LanguageButtonWidget2(cubitContext: context),
+
+                  const SizedBox(height: 30),
+
+                  // QR kod ve uygulama linkleri
+                  _mobilAppQR(qrCodeUrl),
+                ],
+              ),
             ),
           ),
-          Padding(
-            padding: EdgeInsetsGeometry.only(bottom: 50),
-            child: LanguageButtonWidget2(cubitContext: context),
-          ),
-          _mobilAppQR(qrCodeUrl),
-          SizedBox(height: MediaQuery.paddingOf(context).bottom),
         ],
       ),
     );
   }
 
-  _slider(BuildContext context) {
-    return BlocBuilder<PatientLoginCubit, PatientLoginState>(
-      builder: (context, state) {
-        final sliders = state.sliders;
+  // Widget _buildHeader(BuildContext context, Color primaryColor) {
+  //   return Container(
+  //     width: double.infinity,
+  //     padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 40),
+  //     decoration: BoxDecoration(
+  //       gradient: LinearGradient(
+  //         begin: Alignment.topLeft,
+  //         end: Alignment.bottomRight,
+  //         colors: [
+  //           // ignore: deprecated_member_use
+  //           primaryColor.withOpacity(0.85), // Açık renk (sol üst)
+  //           // ignore: deprecated_member_use
+  //           primaryColor.withOpacity(0.95), // Orta geçiş
+  //           primaryColor, // Normal renk (orta-alt)
+  //           // ignore: deprecated_member_use
+  //           primaryColor.withOpacity(0.95), // Koyu geçiş (sağ alt)
+  //         ],
+  //         stops: const [0.0, 0.3, 0.6, 1.0],
+  //       ),
+  //       borderRadius: const BorderRadius.only(
+  //         bottomLeft: Radius.circular(40),
+  //         bottomRight: Radius.circular(40),
+  //       ),
+  //     ),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.center,
+  //       crossAxisAlignment: CrossAxisAlignment.center,
+  //       children: [
+  //         // İlk özellik
+  //         Expanded(
+  //           child: Column(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: [
+  //               HugeIcon(
+  //                 icon: HugeIcons.strokeRoundedFlash,
+  //                 color: ConstColor.white,
+  //                 size: 50,
+  //               ),
+  //               // const SizedBox(height: 12),
+  //               // Text(
+  //               //   "Daha Kolay",
+  //               //   textAlign: TextAlign.center,
+  //               //   style: TextStyle(
+  //               //     color: ConstColor.white,
+  //               //     fontSize: 24,
+  //               //     fontWeight: FontWeight.bold,
+  //               //   ),
+  //               // ),
+  //             ],
+  //           ),
+  //         ),
+  //
+  //         // Divider 1
+  //         Container(
+  //           height: 80,
+  //           width: 2,
+  //           margin: const EdgeInsets.symmetric(horizontal: 40),
+  //           decoration: BoxDecoration(
+  //             color: ConstColor.white.withOpacity(0.5),
+  //             borderRadius: BorderRadius.circular(2),
+  //           ),
+  //         ),
+  //
+  //         // İkinci özellik
+  //         Expanded(
+  //           child: Column(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: [
+  //               HugeIcon(
+  //                 icon: HugeIcons.strokeRoundedStopWatch,
+  //                 color: ConstColor.white,
+  //                 size: 50,
+  //               ),
+  //               // const SizedBox(height: 12),
+  //               // Text(
+  //               //   "Daha Güvenli Hizmet",
+  //               //   textAlign: TextAlign.center,
+  //               //   style: TextStyle(
+  //               //     color: ConstColor.white,
+  //               //     fontSize: 24,
+  //               //     fontWeight: FontWeight.bold,
+  //               //   ),
+  //               // ),
+  //             ],
+  //           ),
+  //         ),
+  //
+  //         // Divider 2
+  //         Container(
+  //           height: 80,
+  //           width: 2,
+  //           margin: const EdgeInsets.symmetric(horizontal: 40),
+  //           decoration: BoxDecoration(
+  //             color: ConstColor.white.withOpacity(0.5),
+  //             borderRadius: BorderRadius.circular(2),
+  //           ),
+  //         ),
+  //
+  //         // Üçüncü özellik
+  //         Expanded(
+  //           child: Column(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: [
+  //               HugeIcon(
+  //                 icon: HugeIcons.strokeRoundedPhoneArrowDown,
+  //                 color: ConstColor.white,
+  //                 size: 50,
+  //               ),
+  //               // const SizedBox(height: 12),
+  //               // Text(
+  //               //   "Mobil Uygulamayı indirin",
+  //               //   textAlign: TextAlign.center,
+  //               //   style: TextStyle(
+  //               //     color: ConstColor.white,
+  //               //     fontSize: 24,
+  //               //     fontWeight: FontWeight.bold,
+  //               //   ),
+  //               // ),
+  //             ],
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+}
 
-        // Slider yoksa varsayılan görseli göster
-        if (sliders.isEmpty) {
-          return Container(
-            height: 200,
-            width: double.infinity,
-            color: ConstColor.black,
-            child: CustomImage.image(
-              "https://kiosk.prtk.gen.tr/assets/images/sliders/kioskSlider.png",
-              CustomImageType.standart,
+Widget _buildStartButton(BuildContext context, Color primaryColor) {
+  return GestureDetector(
+    onTap: () {
+      try {
+        context.read<PatientLoginCubit>().gotoAuth();
+      } catch (_) {}
+    },
+    child: Column(
+      children: [
+        Container(
+          width: 280,
+          height: 280,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: ConstColor.white,
+            border: Border.all(color: primaryColor, width: 4),
+            boxShadow: [
+              BoxShadow(
+                color: primaryColor.withOpacity(0.3),
+                blurRadius: 20,
+                spreadRadius: 5,
+              ),
+            ],
+          ),
+          child: Center(
+            child: HugeIcon(
+              icon: HugeIcons.strokeRoundedPlay,
+              color: primaryColor,
+              size: 100,
             ),
-          );
-        }
+          ),
+        ),
+        const SizedBox(height: 20),
+        Text(
+          ConstantString().start,
+          style: TextStyle(
+            color: primaryColor,
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    ),
+  );
+}
 
-        // Backend'den gelen slider'ları göster
-        return SizedBox(
+Widget _buildActionCards(Color primaryColor) {
+  final actions = [
+    {
+      'icon': HugeIcons.strokeRoundedUserAdd02,
+      'title': ConstantString().appointmentRegistration,
+      'isHugeIcon': true,
+    },
+    {
+      'icon': HugeIcons.strokeRoundedCalendar03,
+      'title': ConstantString().patientRegistration,
+      'isHugeIcon': true,
+    },
+    {
+      'icon': HugeIcons.strokeRoundedCalendar01,
+      'title': ConstantString().takeAppointment,
+      'isHugeIcon': true,
+    },
+  ];
+
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 100),
+    child: Column(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: _buildActionCard(
+                actions[0]['icon'],
+                actions[0]['title'] as String,
+                primaryColor,
+                isHugeIcon: actions[0]['isHugeIcon'] as bool,
+              ),
+            ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: _buildActionCard(
+                actions[1]['icon'],
+                actions[1]['title'] as String,
+                primaryColor,
+                isHugeIcon: actions[1]['isHugeIcon'] as bool,
+              ),
+            ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: _buildActionCard(
+                actions[2]['icon'],
+                actions[2]['title'] as String,
+                primaryColor,
+                isHugeIcon: actions[2]['isHugeIcon'] as bool,
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildActionCard(
+  dynamic icon,
+  String title,
+  Color primaryColor, {
+  bool isHugeIcon = false,
+}) {
+  return Container(
+    height: 180, // Yüksekliği artırdık - uzun metinler için
+    padding: const EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: ConstColor.white,
+      borderRadius: BorderRadius.circular(16),
+      // border: Border.all(
+      //   color: primaryColor.withOpacity(0.3),
+      //   width: 1,
+      // ),
+      // boxShadow: [
+      //   BoxShadow(
+      //     color: ConstColor.black.withOpacity(0.05),
+      //     blurRadius: 8,
+      //     offset: const Offset(0, 2),
+      //   ),
+      // ],
+    ),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+   
+        isHugeIcon
+            ? HugeIcon(icon: icon, size: 55, color: primaryColor)
+            : Icon(icon as IconData, size: 55, color: primaryColor),
+        const SizedBox(height: 16),
+        SizedBox(
+          height: 60, // Sabit yükseklik - tüm metinler aynı alanda
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: primaryColor,
+                fontSize: 22,
+                fontWeight: FontWeight.w600,
+                height: 1.2,
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _slider(BuildContext context) {
+  return BlocBuilder<PatientLoginCubit, PatientLoginState>(
+    builder: (context, state) {
+      final sliders = state.sliders;
+
+      // Slider yoksa varsayılan görseli göster
+      if (sliders.isEmpty) {
+        return Container(
           height: 200,
           width: double.infinity,
-          child: PageView(
-            children: sliders.map((slider) {
-              return CustomImage.image(
-                slider.path ?? "",
-                CustomImageType.standart,
-              );
-            }).toList(),
+          color: ConstColor.black,
+          child: CustomImage.image(
+            "https://kiosk.prtk.gen.tr/assets/images/sliders/kioskSlider.png",
+            CustomImageType.standart,
           ),
         );
-      },
-    );
-  }
+      }
 
-  _mobilAppQR(String qrCodeUrl) {
-    if (qrCodeUrl.isEmpty) {
-      return const SizedBox.shrink();
-    }
-    return Container(
-      height: 200,
-      width: double.infinity,
-      alignment: Alignment.center,
-      padding: EdgeInsets.all(30),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        spacing: 40,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: ConstColor.white,
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  color: ConstColor.black.withOpacity(0.1),
-                  blurRadius: 10,
-                  offset: Offset(0, 4),
-                ),
-              ],
-            ),
-            padding: const EdgeInsets.all(6),
-            child: CachedNetworkImage(
-              imageUrl: qrCodeUrl,
-              fit: BoxFit.contain,
-              placeholder: (context, url) =>
-                  Center(child: CircularProgressIndicator()),
-              errorWidget: (context, url, error) => const SizedBox.shrink(),
-            ),
-          ),
-          Image.asset(ConstantString.appstoreLight, width: 150, height: 120),
-          Image.asset(ConstantString.googlePlayLight, width: 150, height: 120),
-        ],
-      ),
-    );
+      // Backend'den gelen slider'ları göster
+      return SizedBox(
+        height: 200,
+        width: double.infinity,
+        child: PageView(
+          children: sliders.map((slider) {
+            return CustomImage.image(
+              slider.path ?? "",
+              CustomImageType.standart,
+            );
+          }).toList(),
+        ),
+      );
+    },
+  );
+}
+
+Widget _mobilAppQR(String qrCodeUrl) {
+  if (qrCodeUrl.isEmpty) {
+    return const SizedBox.shrink();
   }
+  return Container(
+    width: double.infinity,
+    alignment: Alignment.center,
+    padding: const EdgeInsets.all(30),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      spacing: 40,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: ConstColor.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: ConstColor.black.withOpacity(0.1),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          padding: const EdgeInsets.all(6),
+          child: CachedNetworkImage(
+            imageUrl: qrCodeUrl,
+            width: 120,
+            height: 120,
+            fit: BoxFit.contain,
+            placeholder: (context, url) =>
+                const Center(child: CircularProgressIndicator()),
+            errorWidget: (context, url, error) => const SizedBox.shrink(),
+          ),
+        ),
+        Image.asset(ConstantString.appstoreLight, width: 150, height: 120),
+        Image.asset(ConstantString.googlePlayLight, width: 150, height: 120),
+      ],
+    ),
+  );
 }

@@ -206,4 +206,8 @@ class ConstantString {
   String goBack = LocaleKeys.goBack.locale;
   String insuranceTypeNotFound = LocaleKeys.insuranceTypeNotFound.locale;
   String unexpectedError = LocaleKeys.unexpectedError.locale;
+  String appointmentEntry = LocaleKeys.appointmentEntry.locale;
+  String patientRecord = LocaleKeys.patientRecord.locale;
+
+
 }

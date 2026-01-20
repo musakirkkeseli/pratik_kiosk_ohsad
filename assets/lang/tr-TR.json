@@ -28,7 +28,7 @@
   "insurance": "Sigorta",
   "enterTurkishIdNumber": "TC Kimlik Numaranızı Giriniz",
   "clear": "Temizle",
-  "patientRegistration": "Randevusuz Hasta Kaydı",
+  "patientRegistration": "Randevusuz Hasta Kayıt",
   "testQueue": "Tetkik Sırası",
   "results": "Sonuçlar",
   "appointmentRegistration": "Randevulu Hasta Kayıt",
@@ -106,7 +106,9 @@
   "pleaseProvideSignature": "İmzanızı Atınız",
   "search": "Ara",
   "start": "BAŞLA",
+  "patientRecord": "Hasta Kaydı",
   "takeAppointment": "Randevu Al",
+  "appointmentEntry": "Randevuya Giriş",
   "registerPatientForAppointment": "Randevulu Hasta Kayıt",
   "viewTestResults": "Tetkik Görüntüle",
   "selectToMakeChoice": "Seçim yapmak için dokununuz",
@@ -144,5 +146,6 @@
   "thankYouForUnderstanding": "Anlayışınız için teşekkür ederiz.",
   "goBack": "Geri Dön",
   "insuranceTypeNotFound": "Sigorta türünüz bulunamadı.",
-  "unexpectedError": "Beklenmeyen hata"
+  "unexpectedError": "Beklenmeyen hata",
+  " ": "Hasta Kaydı "
 }

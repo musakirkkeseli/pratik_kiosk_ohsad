@@ -152,4 +152,7 @@ abstract class LocaleKeys {
   static const goBack = 'goBack';
   static const insuranceTypeNotFound = 'insuranceTypeNotFound';
   static const unexpectedError = 'unexpectedError';
+  static const appointmentEntry = 'appointmentEntry';
+  static const patientRecord = 'patientRecord';
+
 }

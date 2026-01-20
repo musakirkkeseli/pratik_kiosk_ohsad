@@ -41,7 +41,6 @@ dependencies:
   hugeicons: ^1.1.1
   cached_network_image: ^3.4.1
   signature: ^5.5.0
-
   # analysis
   mixpanel_flutter: ^2.4.4
   sentry_flutter: ^9.6.0
