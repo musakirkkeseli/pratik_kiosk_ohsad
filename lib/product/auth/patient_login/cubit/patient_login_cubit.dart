@@ -52,6 +52,82 @@ class PatientLoginCubit extends BaseCubit<PatientLoginState> {
     }
   }
 
+  Future<void> directLogin() async {
+    _startOrResetTimer();
+    safeEmit(state.copyWith(status: EnumGeneralStateStatus.loading));
+    _trackButton('direct_patient_login_submit');
+    try {
+      final resp = await service.postDirectLogin(state.tcNo);
+
+      if (resp.success && resp.data is PatientResponseModel) {
+        String? accessToken = resp.data!.accessToken;
+        if (accessToken is String) {
+          _log.d("data doğru");
+
+          final patientName = resp.data!.patientData?.name ?? "";
+          final patientSurname = resp.data!.patientData?.surname ?? "";
+          final identityNo = resp.data!.patientData?.identityNo ?? "";
+
+          UserLoginStatusService().login(
+            accessToken: accessToken,
+            name: patientName,
+            surname: patientSurname,
+            userId: 1,
+            tcNo: identityNo,
+          );
+          safeEmit(
+            state.copyWith(
+              status: EnumGeneralStateStatus.success,
+              message: resp.message,
+              isNewIdCardLogin: true,
+            ),
+          );
+        } else {
+          safeEmit(
+            state.copyWith(
+              status: EnumGeneralStateStatus.failure,
+              message: resp.message,
+            ),
+          );
+        }
+      } else {
+        _log.d("data yanlış");
+        safeEmit(
+          state.copyWith(
+            status: EnumGeneralStateStatus.failure,
+            message: resp.message,
+          ),
+        );
+      }
+    } on NetworkException catch (e) {
+      switch (e.statusCode) {
+        case 400:
+          safeEmit(
+            state.copyWith(
+              status: EnumGeneralStateStatus.success,
+              message: e.message,
+              pageType: PageType.register,
+            ),
+          );
+          break;
+        default:
+          safeEmit(
+            state.copyWith(
+              status: EnumGeneralStateStatus.failure,
+              message: e.message,
+            ),
+          );
+      }
+    } catch (e) {
+      safeEmit(
+        state.copyWith(
+          status: EnumGeneralStateStatus.failure,
+          message: ConstantString().errorOccurred,
+        ),
+      );
+    }
+  }
+
   Future<void> userLogin() async {
     safeEmit(state.copyWith(status: EnumGeneralStateStatus.loading));
     _trackButton(
@@ -64,7 +140,7 @@ class PatientLoginCubit extends BaseCubit<PatientLoginState> {
     PatientLoginRequestModel patientLoginRequestModel =
         PatientLoginRequestModel(
           encryptedUserData: state.encryptedUserData,
-          otpCode: "000000", //state.otpCode
+          otpCode: state.otpCode,
         );
     try {
       final resp = await service.postUserLogin(patientLoginRequestModel);
@@ -232,8 +308,6 @@ class PatientLoginCubit extends BaseCubit<PatientLoginState> {
               encryptedUserData: encryptedUserData,
             ),
           );
-          await sendOtpCode();
-          await userLogin();
         } else {
           safeEmit(
             state.copyWith(
@@ -298,7 +372,7 @@ class PatientLoginCubit extends BaseCubit<PatientLoginState> {
             state.copyWith(
               status: EnumGeneralStateStatus.success,
               message: resp.message,
-              // pageType: PageType.verifySms,
+              pageType: PageType.verifySms,
             ),
           );
           _startOrResetTimer();
@@ -349,6 +423,10 @@ class PatientLoginCubit extends BaseCubit<PatientLoginState> {
 
   void clearTcNo() {
     safeEmit(state.copyWith(tcNo: ""));
+  }
+
+  void setTcNo(String tcNo) {
+    safeEmit(state.copyWith(tcNo: tcNo));
   }
 
   void clearOtpCode() {
