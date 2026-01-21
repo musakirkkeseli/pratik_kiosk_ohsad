@@ -147,5 +147,7 @@
   "goBack": "Geri Dön",
   "insuranceTypeNotFound": "Sigorta türünüz bulunamadı.",
   "unexpectedError": "Beklenmeyen hata",
-  " ": "Hasta Kaydı "
+  "newIdCardLogin": "Yeni Kimlik Kartı ile giriş yap",
+  "newIdCardScanInstruction": "Yeni Kimlik Kartınızın arka yüzünü barkod cihazına okutunuz",
+  "invalidBarcode": "Geçersiz barkod"
 }

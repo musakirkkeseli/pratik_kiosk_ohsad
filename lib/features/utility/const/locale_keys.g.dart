@@ -154,5 +154,8 @@ abstract class LocaleKeys {
   static const unexpectedError = 'unexpectedError';
   static const appointmentEntry = 'appointmentEntry';
   static const patientRecord = 'patientRecord';
+  static const newIdCardLogin = 'newIdCardLogin';
+  static const newIdCardScanInstruction = 'newIdCardScanInstruction';
+  static const invalidBarcode = 'invalidBarcode';
 
 }

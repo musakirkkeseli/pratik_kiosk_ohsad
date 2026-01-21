@@ -147,5 +147,8 @@
   "thankYouForUnderstanding": "شكرا لتفهمك.",
   "goBack": "العودة",
   "insuranceTypeNotFound": "لم يتم العثور على نوع التأمين الخاص بك.",
-  "unexpectedError": "خطأ غير متوقع"
+  "unexpectedError": "خطأ غير متوقع",
+  "newIdCardLogin": "تسجيل الدخول باستخدام بطاقة الهوية الجديدة",
+  "newIdCardScanInstruction": "يرجى مسح الجزء الخلفي من بطاقة الهوية الجديدة الخاصة بك باستخدام قارئ الباركود",
+  "invalidBarcode": "باركود غير صالح"
 }

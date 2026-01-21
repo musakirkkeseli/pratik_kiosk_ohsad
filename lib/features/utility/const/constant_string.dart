@@ -201,13 +201,13 @@ class ConstantString {
       LocaleKeys.paymentSystemConnectionError.locale;
   String pleaseContactReception = LocaleKeys.pleaseContactReception.locale;
   String technicalTeamWorking = LocaleKeys.technicalTeamWorking.locale;
-  String thankYouForUnderstanding =
-      LocaleKeys.thankYouForUnderstanding.locale;
+  String thankYouForUnderstanding = LocaleKeys.thankYouForUnderstanding.locale;
   String goBack = LocaleKeys.goBack.locale;
   String insuranceTypeNotFound = LocaleKeys.insuranceTypeNotFound.locale;
   String unexpectedError = LocaleKeys.unexpectedError.locale;
   String appointmentEntry = LocaleKeys.appointmentEntry.locale;
   String patientRecord = LocaleKeys.patientRecord.locale;
-
-
+  String newIdCardLogin = LocaleKeys.newIdCardLogin.locale;
+  String newIdCardScanInstruction = LocaleKeys.newIdCardScanInstruction.locale;
+  String invalidBarcode = LocaleKeys.invalidBarcode.locale;
 }

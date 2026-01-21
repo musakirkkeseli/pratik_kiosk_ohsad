@@ -146,5 +146,8 @@
   "thankYouForUnderstanding": "Thank you for your understanding.",
   "goBack": "Go Back",
   "insuranceTypeNotFound": "Your insurance type was not found.",
-  "unexpectedError": "Unexpected error"
+  "unexpectedError": "Unexpected error",
+  "newIdCardLogin": "Login with New ID Card",
+  "newIdCardScanInstruction": "Please scan the back of your New ID Card with the barcode reader",
+  "invalidBarcode": "Invalid barcode"
 }
