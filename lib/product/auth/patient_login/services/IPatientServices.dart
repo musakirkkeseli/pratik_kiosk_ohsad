@@ -13,6 +13,7 @@ abstract class IPatientServices {
 
   IPatientServices(this.http);
 
+  final String directLoginPath = IPatientServicesPath.directLogin.rawValue;
   final String userLoginPath = IPatientServicesPath.userLogin.rawValue;
   final String userRegisterPath = IPatientServicesPath.userRegister.rawValue;
   final String validateIdentityPath =
@@ -20,6 +21,7 @@ abstract class IPatientServices {
   final String sendOtpLoginPath = IPatientServicesPath.sendOtpLogin.rawValue;
   final String slidersPath = IPatientServicesPath.sliders.rawValue;
 
+  Future<ApiResponse<PatientResponseModel>> postDirectLogin(String tcNo);
   Future<ApiResponse<PatientResponseModel>> postUserLogin(
     PatientLoginRequestModel patientLoginRequestModel,
   );
@@ -35,6 +37,7 @@ abstract class IPatientServices {
 }
 
 enum IPatientServicesPath {
+  directLogin,
   userLogin,
   userRegister,
   validateIdentity,
@@ -46,6 +49,8 @@ extension IHospitalAndUserLoginServicesExtension on IPatientServicesPath {
   String get rawValue {
     final root = "/user-auth";
     switch (this) {
+      case IPatientServicesPath.directLogin:
+        return '$root/login';
       case IPatientServicesPath.userLogin:
         return '$root/loginVTwo';
       case IPatientServicesPath.userRegister:

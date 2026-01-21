@@ -13,6 +13,18 @@ class PatientServices extends IPatientServices {
   PatientServices(super.http);
 
   @override
+  Future<ApiResponse<PatientResponseModel>> postDirectLogin(
+    String tcNo,
+  ) {
+    return http.request<PatientResponseModel>(
+      requestFunction: () =>
+          http.post(directLoginPath, data: {'tcNo': tcNo}),
+      fromJson: (json) =>
+          PatientResponseModel.fromJson(json as Map<String, dynamic>),
+    );
+  }
+
+  @override
   Future<ApiResponse<PatientResponseModel>> postUserLogin(
     PatientLoginRequestModel patientLoginRequestModel,
   ) {
