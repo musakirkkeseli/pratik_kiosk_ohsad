@@ -16,6 +16,7 @@ class PatientLoginState {
   final String birthDate;
   final String? encryptedUserData;
   final List<SliderModel> sliders;
+  final bool isNewIdCardLogin;
 
   const PatientLoginState({
     this.counter,
@@ -29,6 +30,7 @@ class PatientLoginState {
     this.birthDate = "",
     this.encryptedUserData,
     this.sliders = const [],
+    this.isNewIdCardLogin = false,
   });
 
   PatientLoginState copyWith({
@@ -43,6 +45,7 @@ class PatientLoginState {
     String? birthDate,
     String? encryptedUserData,
     List<SliderModel>? sliders,
+    bool? isNewIdCardLogin,
   }) {
     return PatientLoginState(
       message: message ?? this.message,
@@ -56,6 +59,7 @@ class PatientLoginState {
       birthDate: birthDate ?? this.birthDate,
       encryptedUserData: encryptedUserData ?? this.encryptedUserData,
       sliders: sliders ?? this.sliders,
+      isNewIdCardLogin: isNewIdCardLogin ?? this.isNewIdCardLogin
     );
   }
 }
