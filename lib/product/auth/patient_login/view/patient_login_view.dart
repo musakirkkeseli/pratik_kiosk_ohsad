@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/icon_park_solid.dart';
@@ -109,17 +111,19 @@ class _PatientLoginViewState extends State<PatientLoginView> {
                     "_isOpenVerifyPhoneNumberDialog $_isOpenVerifyPhoneNumberDialog // $_isOpenWarningPhoneNumberDialog //result ${!_isOpenVerifyPhoneNumberDialog || !_isOpenWarningPhoneNumberDialog}",
                   );
                   _isOpenVerifyPhoneNumberDialog = true;
-                  if (state.phoneNumber.length == 10) {
-                    // verifyPhoneDialog(context, state.phoneNumber);
-                  } else {
-                    AppDialog(context).infoDialog(
-                      ConstantString().warning,
-                      ConstantString().phoneNumberNotFound,
-                      afterFunc: (onValue) {
-                        _isOpenVerifyPhoneNumberDialog = false;
-                        _isOpenWarningPhoneNumberDialog = false;
-                      },
-                    );
+                  if (!state.isNewIdCardLogin) {
+                    if (state.phoneNumber.length == 10) {
+                      verifyPhoneDialog(context, state.phoneNumber);
+                    } else {
+                      AppDialog(context).infoDialog(
+                        ConstantString().warning,
+                        ConstantString().phoneNumberNotFound,
+                        afterFunc: (onValue) {
+                          _isOpenVerifyPhoneNumberDialog = false;
+                          _isOpenWarningPhoneNumberDialog = false;
+                        },
+                      );
+                    }
                   }
                 }
               }
@@ -292,6 +296,21 @@ class _PatientLoginViewState extends State<PatientLoginView> {
                   },
                 );
               },
+            ),
+            SizedBox(height: 20),
+            ElevatedButton.icon(
+              onPressed: () => _showBarcodeDialog(cubitContext),
+              icon: const Icon(Icons.qr_code_scanner),
+              label: Text(
+                ConstantString().newIdCardLogin,
+                style: context.hospitalNameText,
+              ),
+              style: OutlinedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
+                ),
+              ),
             ),
           ],
         );
@@ -566,6 +585,34 @@ class _PatientLoginViewState extends State<PatientLoginView> {
     ctx.read<PatientLoginCubit>().clean();
   }
 
+  void _showBarcodeDialog(BuildContext cubitContext) {
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return _BarcodeReaderDialog(
+          onBarcodeScanned: (barcode) {
+            Navigator.of(dialogContext).pop();
+            _log.d("Okutulan barkod: $barcode");
+            // Barkodu işle - örneğin TC No olarak ayarla
+            if (barcode.length == 11) {
+              cubitContext.read<PatientLoginCubit>().setTcNo(barcode);
+              final tcError = EnumTextformfieldExtension.validateTC(barcode);
+              if (tcError != null) {
+                SnackbarService().showSnackBar(tcError);
+              } else {
+                cubitContext.read<PatientLoginCubit>().directLogin();
+              }
+            } else {
+              SnackbarService().showSnackBar(
+                "${ConstantString().invalidBarcode}: $barcode",
+              );
+            }
+          },
+        );
+      },
+    );
+  }
+
   void _showTimeDialog(BuildContext cubitContext) {
     _dialogOpen = true;
     final cubit = cubitContext.read<PatientLoginCubit>();
@@ -601,5 +648,177 @@ class _PatientLoginViewState extends State<PatientLoginView> {
             cubitContext.read<PatientLoginCubit>().onChanged('force');
           }
         });
+  }
+}
+
+class _BarcodeReaderDialog extends StatefulWidget {
+  final Function(String barcode) onBarcodeScanned;
+
+  const _BarcodeReaderDialog({required this.onBarcodeScanned});
+
+  @override
+  State<_BarcodeReaderDialog> createState() => _BarcodeReaderDialogState();
+}
+
+class _BarcodeReaderDialogState extends State<_BarcodeReaderDialog> {
+  String _scannedBarcode = '';
+  String _displayBarcode = '';
+  Timer? _debounceTimer;
+  final FocusNode _focusNode = FocusNode();
+  final MyLog _log = MyLog("BarcodeReaderDialog");
+
+  @override
+  void initState() {
+    super.initState();
+    // Dialog açıldığında focus'u al
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _focusNode.requestFocus();
+    });
+  }
+
+  @override
+  void dispose() {
+    _debounceTimer?.cancel();
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  void _handleKeyEvent(KeyEvent event) {
+    if (event is KeyDownEvent) {
+      _log.d("Key event: ${event.logicalKey} - Character: ${event.character}");
+
+      // Enter veya Return tuşuna basıldıysa barkodu işle
+      if (event.logicalKey == LogicalKeyboardKey.enter ||
+          event.logicalKey == LogicalKeyboardKey.numpadEnter) {
+        if (_scannedBarcode.isNotEmpty) {
+          _log.d("Barkod tamamlandı: $_scannedBarcode");
+          widget.onBarcodeScanned(_scannedBarcode);
+          _scannedBarcode = '';
+          _displayBarcode = '';
+        }
+        return;
+      }
+
+      // Eğer karakter varsa ekle
+      final character = event.character;
+      if (character != null && character.isNotEmpty) {
+        setState(() {
+          _scannedBarcode += character;
+          _displayBarcode += character;
+        });
+
+        // Debounce timer - Barkod okuyucu hızlı gönderir,
+        // ama kullanıcı manuel giriş yaparsa temizle
+        _debounceTimer?.cancel();
+        _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+          // Eğer 500ms içinde yeni karakter gelmezse (manuel giriş olabilir)
+          // ve barkod Enter ile onaylanmadıysa, tamponu temizle
+          if (mounted) {
+            setState(() {
+              _scannedBarcode = '';
+              _displayBarcode = 'Zaman aşımı - Tekrar okutun';
+            });
+            Future.delayed(const Duration(seconds: 2), () {
+              if (mounted) {
+                setState(() {
+                  _displayBarcode = '';
+                });
+              }
+            });
+          }
+        });
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return KeyboardListener(
+      focusNode: _focusNode,
+      autofocus: true,
+      onKeyEvent: _handleKeyEvent,
+      child: Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Container(
+          padding: const EdgeInsets.all(32),
+          constraints: const BoxConstraints(maxWidth: 500, maxHeight: 600),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                ConstantString().newIdCardLogin,
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: ConstColor.grey300,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: context.primaryColor, width: 2),
+                  ),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.qr_code_scanner,
+                          size: 120,
+                          color: context.primaryColor,
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          ConstantString().newIdCardScanInstruction,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        if (_displayBarcode.isNotEmpty) ...[
+                          const SizedBox(height: 24),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              _displayBarcode,
+                              style: Theme.of(context).textTheme.titleLarge
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 2,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Klavye girişi algılanıyor...',
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodySmall?.copyWith(color: ConstColor.grey700),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text('Kapat', style: TextStyle(fontSize: 16)),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

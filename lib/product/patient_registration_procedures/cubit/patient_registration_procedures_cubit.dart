@@ -170,8 +170,8 @@ class PatientRegistrationProceduresCubit
       safeEmit(
         state.copyWith(
           model: updatedModel,
-          currentStep: EnumPatientRegistrationProcedures.mandatory,
-          startStep: EnumPatientRegistrationProcedures.mandatory,
+          currentStep: EnumPatientRegistrationProcedures.doctor,
+          startStep: EnumPatientRegistrationProcedures.doctor,
         ),
       );
     }
@@ -195,8 +195,12 @@ class PatientRegistrationProceduresCubit
   }
 
   void autoSelectDoctor() {
-    if (startStep == EnumPatientRegistrationProcedures.doctor &&
-        state.model.doctorId is String) {
+    _log.d("autoSelectDoctor called ${state.model.doctorId}");
+    if ((startStep == EnumPatientRegistrationProcedures.doctor ||
+            state.startStep == EnumPatientRegistrationProcedures.doctor) &&
+        state.model.doctorId is String &&
+        state.model.appointmentId is String) {
+      _log.d("autoSelectDoctor run");
       final updatedModel = state.model;
       updatedModel.doctorId = updatedModel.doctorId.toString();
       updatedModel.departmentId = updatedModel.departmentId.toString();
