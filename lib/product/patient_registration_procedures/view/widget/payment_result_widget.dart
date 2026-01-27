@@ -151,12 +151,13 @@ class PaymentResultWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              Icon(
-                Icons.check_circle,
-                color: paymentResultType.color,
-                size: 100,
+              paymentResultType.icon,
+              Text(
+                paymentResultType.title,
+                style: paymentResultType == EnumPaymentResultType.success
+                    ? context.successText
+                    : context.paymentErrorText,
               ),
-              Text(paymentResultType.title, style: context.successText),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Text(paymentResultType.description, style: context.bodyPrimary),
               Text(paymentResultType.message, style: context.bodyPrimary),
