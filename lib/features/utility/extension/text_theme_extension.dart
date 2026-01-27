@@ -51,6 +51,9 @@ extension AppTextTheme on BuildContext {
   TextStyle get successText =>
       textTheme.bodyLarge!.copyWith(color: ConstColor.green, fontSize: 20);
 
+  TextStyle get paymentErrorText =>
+      textTheme.bodyLarge!.copyWith(color: ConstColor.red, fontSize: 24);
+
   TextStyle get hospitalNameText => textTheme.bodyLarge!.copyWith(
     color: ConstColor.white,
     fontSize: 28,
