@@ -150,5 +150,6 @@
   "unexpectedError": "خطأ غير متوقع",
   "newIdCardLogin": "تسجيل الدخول باستخدام بطاقة الهوية الجديدة",
   "newIdCardScanInstruction": "يرجى مسح الجزء الخلفي من بطاقة الهوية الجديدة الخاصة بك باستخدام قارئ الباركود",
-  "invalidBarcode": "باركود غير صالح"
+  "invalidBarcode": "باركود غير صالح",
+  "arrivalOpening": "تسجيل الوصول"
 }

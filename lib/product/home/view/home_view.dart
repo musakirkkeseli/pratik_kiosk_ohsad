@@ -30,7 +30,7 @@ class _HomeViewState extends State<HomeView> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 30),
+            SizedBox(height: 15),
             CustomAppBar(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40.0),
@@ -104,7 +104,7 @@ class _HomeViewState extends State<HomeView> {
                     children: [
                       ListTile(
                         contentPadding: EdgeInsets.symmetric(
-                          vertical: MediaQuery.of(context).size.height * 0.02,
+                          vertical: MediaQuery.of(context).size.height * 0.0085,
                         ),
                         title: Text(
                           EnumHomeItem.values[index].label,

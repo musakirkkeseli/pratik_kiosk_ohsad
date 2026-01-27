@@ -210,4 +210,5 @@ class ConstantString {
   String newIdCardLogin = LocaleKeys.newIdCardLogin.locale;
   String newIdCardScanInstruction = LocaleKeys.newIdCardScanInstruction.locale;
   String invalidBarcode = LocaleKeys.invalidBarcode.locale;
+  String arrivalOpening = LocaleKeys.arrivalOpening.locale;
 }

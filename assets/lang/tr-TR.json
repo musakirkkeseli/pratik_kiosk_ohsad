@@ -149,5 +149,6 @@
   "unexpectedError": "Beklenmeyen hata",
   "newIdCardLogin": "Yeni Kimlik Kartı ile giriş yap",
   "newIdCardScanInstruction": "Yeni Kimlik Kartınızın arka yüzünü barkod cihazına okutunuz",
-  "invalidBarcode": "Geçersiz barkod"
+  "invalidBarcode": "Geçersiz barkod",
+  "arrivalOpening": "Geliş Açma"
 }

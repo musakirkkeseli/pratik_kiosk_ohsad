@@ -2,7 +2,7 @@
 
 // ignore_for_file: constant_identifier_names
 
-abstract class LocaleKeys {
+abstract class  LocaleKeys {
   static const birthDate = 'birthDate';
   static const signIn = 'signIn';
   static const patientLogin = 'patientLogin';
@@ -19,7 +19,7 @@ abstract class LocaleKeys {
   static const checkInternetConnection = 'checkInternetConnection';
   static const associationGssInfoMessage = 'associationGssInfoMessage';
   static const fieldRequired = 'fieldRequired';
-  static const minLengthError = 'minLengthError';
+  static const minCharacters = 'minCharacters';
   static const priceInformation = 'priceInformation';
   static const sectionSelection = 'sectionSelection';
   static const section = 'section';
@@ -28,10 +28,9 @@ abstract class LocaleKeys {
   static const patientTransaction = 'patientTransaction';
   static const mandatoryFields = 'mandatoryFields';
   static const payment = 'payment';
-  static const makeSecurePayment = 'makeSecurePayment';
   static const total = 'total';
   static const insurance = 'insurance';
-  static const enterYourTurkishIdNumber = 'enterYourTurkishIdNumber';
+  static const enterTurkishIdNumber = 'enterTurkishIdNumber';
   static const clear = 'clear';
   static const patientRegistration = 'patientRegistration';
   static const testQueue = 'testQueue';
@@ -59,28 +58,27 @@ abstract class LocaleKeys {
   static const settingsApplying = 'settingsApplying';
   static const paymentAmount = 'paymentAmount';
   static const registrationFailed = 'registrationFailed';
-  static const bankReferral = 'bankReferral';
+  static const pleaseProceedToPatientAdmission = 'pleaseProceedToPatientAdmission';
   static const continueLabel = 'continueLabel';
   static const validateTcText = 'validateTcText';
   static const validateOTPText = 'validateOTPText';
   static const pleaseEnterSmsCode = 'pleaseEnterSmsCode';
+  static const minLengthError = 'minLengthError';
+  static const enterYourTurkishIdNumber = 'enterYourTurkishIdNumber';
   static const isThisNumberYours = 'isThisNumberYours';
   static const no = 'no';
   static const isThisNumberYoursWithPhone = 'isThisNumberYoursWithPhone';
-  static const pleaseProceedToPatientAdmission =
-      'pleaseProceedToPatientAdmission';
   static const warning = 'warning';
   static const phoneNumberNotFound = 'phoneNumberNotFound';
   static const updatePhoneAtAdmission = 'updatePhoneAtAdmission';
   static const yes = 'yes';
   static const clearData = 'clearData';
+  static const backToTop = 'backToTop';
   static const downloadOurApp = 'downloadOurApp';
   static const sessionTimeout = 'sessionTimeout';
   static const sessionWillCloseIfInactive = 'sessionWillCloseIfInactive';
-  static const examinationRegistrationCreated =
-      'examinationRegistrationCreated';
-  static const requirePaymentForExaminationRegistration =
-      'requirePaymentForExaminationRegistration';
+  static const examinationRegistrationCreated = 'examinationRegistrationCreated';
+  static const requirePaymentForExaminationRegistration = 'requirePaymentForExaminationRegistration';
   static const paymentCompletedSuccessfully = 'paymentCompletedSuccessfully';
   static const paymentCompletedFailed = 'paymentCompletedFailed';
   static const selectDepartment = 'selectDepartment';
@@ -91,6 +89,7 @@ abstract class LocaleKeys {
   static const turkishIdNumber = 'turkishIdNumber';
   static const smsCode = 'smsCode';
   static const elevenDigitTurkishIdInfo = 'elevenDigitTurkishIdInfo';
+  static const makeSecurePayment = 'makeSecurePayment';
   static const welcome = 'welcome';
   static const vatIncluded = 'vatIncluded';
   static const otherBranches = 'otherBranches';
@@ -111,13 +110,13 @@ abstract class LocaleKeys {
   static const pleaseProvideSignature = 'pleaseProvideSignature';
   static const search = 'search';
   static const start = 'start';
+  static const patientRecord = 'patientRecord';
   static const takeAppointment = 'takeAppointment';
+  static const appointmentEntry = 'appointmentEntry';
   static const registerPatientForAppointment = 'registerPatientForAppointment';
   static const viewTestResults = 'viewTestResults';
   static const selectToMakeChoice = 'selectToMakeChoice';
-  static const backToTop = 'backToTop';
-  static const appointmentExistsForSelectedSection =
-      'appointmentExistsForSelectedSection';
+  static const appointmentExistsForSelectedSection = 'appointmentExistsForSelectedSection';
   static const appointmentDetails = 'appointmentDetails';
   static const continueWithAppointment = 'continueWithAppointment';
   static const cancelAndSelectAnotherSection = 'cancelAndSelectAnotherSection';
@@ -152,10 +151,9 @@ abstract class LocaleKeys {
   static const goBack = 'goBack';
   static const insuranceTypeNotFound = 'insuranceTypeNotFound';
   static const unexpectedError = 'unexpectedError';
-  static const appointmentEntry = 'appointmentEntry';
-  static const patientRecord = 'patientRecord';
   static const newIdCardLogin = 'newIdCardLogin';
   static const newIdCardScanInstruction = 'newIdCardScanInstruction';
   static const invalidBarcode = 'invalidBarcode';
+  static const arrivalOpening = 'arrivalOpening';
 
 }

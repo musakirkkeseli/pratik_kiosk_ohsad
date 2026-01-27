@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/material_symbols.dart';
+import 'package:iconify_flutter/icons/mdi.dart';
 import 'package:kiosk/features/utility/navigation_service.dart';
 
 import '../../../product/appointments/view/appointments_view.dart';
+import '../../../product/arrival_opening/view/arrival_opening_view.dart';
 import '../../../product/home/view/widget/section_button_widget.dart';
 import '../../../product/questionnaire/view/questionnaire_view.dart';
 import '../const/constant_string.dart';
@@ -12,6 +14,7 @@ import '../extension/color_extension.dart';
 enum EnumHomeItem {
   appointments,
   registration,
+  arrivalOpening,
   qr;
   // results;
 
@@ -23,6 +26,8 @@ enum EnumHomeItem {
         return ConstantString().registration;
       case EnumHomeItem.qr:
         return ConstantString().survey;
+      case EnumHomeItem.arrivalOpening:
+        return ConstantString().arrivalOpening;
     }
   }
 
@@ -39,7 +44,9 @@ enum EnumHomeItem {
           color: context.primaryColor,
         );
       case EnumHomeItem.qr:
-        return Iconify(MaterialSymbols.view_list, color: context.primaryColor);
+        return Iconify(Mdi.clipboard_list, color: context.primaryColor);
+      case EnumHomeItem.arrivalOpening:
+        return Iconify(Mdi.account_check, color: context.primaryColor);
     }
   }
 
@@ -65,6 +72,8 @@ enum EnumHomeItem {
         return SectionButtonWidget();
       case EnumHomeItem.qr:
         return QuestionnaireView();
+      case EnumHomeItem.arrivalOpening:
+        return ArrivalOpeningView();
     }
   }
 }
