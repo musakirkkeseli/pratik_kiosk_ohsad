@@ -619,7 +619,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "0bec4db4df9644d8a5d4f33e31d4308465bf840e"
+      resolved-ref: fd7392475a0f5a1441c34fee649e6da8708796bd
       url: "https://github.com/musakirkkeseli/pratik_pos_integration.git"
     source: git
     version: "0.0.1"
