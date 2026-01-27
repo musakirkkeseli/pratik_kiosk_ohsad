@@ -45,9 +45,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               child: Column(
                 children: [
                   const SizedBox(height: 80),
-                  _buildStartButton(context, primaryColor),
-                  const SizedBox(height: 40),
-                  _buildActionCards(primaryColor),
+                  _startWidget(context, primaryColor),
                   const SizedBox(height: 40),
                   LanguageButtonWidget2(cubitContext: context),
                   const SizedBox(height: 40),
@@ -60,135 +58,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       ),
     );
   }
-
-  // Widget _buildHeader(BuildContext context, Color primaryColor) {
-  //   return Container(
-  //     width: double.infinity,
-  //     padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 40),
-  //     decoration: BoxDecoration(
-  //       gradient: LinearGradient(
-  //         begin: Alignment.topLeft,
-  //         end: Alignment.bottomRight,
-  //         colors: [
-  //           // ignore: deprecated_member_use
-  //           primaryColor.withOpacity(0.85), // Açık renk (sol üst)
-  //           // ignore: deprecated_member_use
-  //           primaryColor.withOpacity(0.95), // Orta geçiş
-  //           primaryColor, // Normal renk (orta-alt)
-  //           // ignore: deprecated_member_use
-  //           primaryColor.withOpacity(0.95), // Koyu geçiş (sağ alt)
-  //         ],
-  //         stops: const [0.0, 0.3, 0.6, 1.0],
-  //       ),
-  //       borderRadius: const BorderRadius.only(
-  //         bottomLeft: Radius.circular(40),
-  //         bottomRight: Radius.circular(40),
-  //       ),
-  //     ),
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.center,
-  //       crossAxisAlignment: CrossAxisAlignment.center,
-  //       children: [
-  //         // İlk özellik
-  //         Expanded(
-  //           child: Column(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: [
-  //               HugeIcon(
-  //                 icon: HugeIcons.strokeRoundedFlash,
-  //                 color: ConstColor.white,
-  //                 size: 50,
-  //               ),
-  //               // const SizedBox(height: 12),
-  //               // Text(
-  //               //   "Daha Kolay",
-  //               //   textAlign: TextAlign.center,
-  //               //   style: TextStyle(
-  //               //     color: ConstColor.white,
-  //               //     fontSize: 24,
-  //               //     fontWeight: FontWeight.bold,
-  //               //   ),
-  //               // ),
-  //             ],
-  //           ),
-  //         ),
-  //
-  //         // Divider 1
-  //         Container(
-  //           height: 80,
-  //           width: 2,
-  //           margin: const EdgeInsets.symmetric(horizontal: 40),
-  //           decoration: BoxDecoration(
-  //             color: ConstColor.white.withOpacity(0.5),
-  //             borderRadius: BorderRadius.circular(2),
-  //           ),
-  //         ),
-  //
-  //         // İkinci özellik
-  //         Expanded(
-  //           child: Column(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: [
-  //               HugeIcon(
-  //                 icon: HugeIcons.strokeRoundedStopWatch,
-  //                 color: ConstColor.white,
-  //                 size: 50,
-  //               ),
-  //               // const SizedBox(height: 12),
-  //               // Text(
-  //               //   "Daha Güvenli Hizmet",
-  //               //   textAlign: TextAlign.center,
-  //               //   style: TextStyle(
-  //               //     color: ConstColor.white,
-  //               //     fontSize: 24,
-  //               //     fontWeight: FontWeight.bold,
-  //               //   ),
-  //               // ),
-  //             ],
-  //           ),
-  //         ),
-  //
-  //         // Divider 2
-  //         Container(
-  //           height: 80,
-  //           width: 2,
-  //           margin: const EdgeInsets.symmetric(horizontal: 40),
-  //           decoration: BoxDecoration(
-  //             color: ConstColor.white.withOpacity(0.5),
-  //             borderRadius: BorderRadius.circular(2),
-  //           ),
-  //         ),
-  //
-  //         // Üçüncü özellik
-  //         Expanded(
-  //           child: Column(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: [
-  //               HugeIcon(
-  //                 icon: HugeIcons.strokeRoundedPhoneArrowDown,
-  //                 color: ConstColor.white,
-  //                 size: 50,
-  //               ),
-  //               // const SizedBox(height: 12),
-  //               // Text(
-  //               //   "Mobil Uygulamayı indirin",
-  //               //   textAlign: TextAlign.center,
-  //               //   style: TextStyle(
-  //               //     color: ConstColor.white,
-  //               //     fontSize: 24,
-  //               //     fontWeight: FontWeight.bold,
-  //               //   ),
-  //               // ),
-  //             ],
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 }
 
-Widget _buildStartButton(BuildContext context, Color primaryColor) {
+Widget _startWidget(BuildContext context, Color primaryColor) {
   return GestureDetector(
     onTap: () {
       try {
@@ -197,40 +69,50 @@ Widget _buildStartButton(BuildContext context, Color primaryColor) {
     },
     child: Column(
       children: [
-        Container(
-          width: 280,
-          height: 280,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: ConstColor.white,
-            border: Border.all(color: primaryColor, width: 4),
-            boxShadow: [
-              BoxShadow(
-                color: primaryColor.withOpacity(0.3),
-                blurRadius: 20,
-                spreadRadius: 5,
-              ),
-            ],
-          ),
-          child: Center(
-            child: HugeIcon(
-              icon: HugeIcons.strokeRoundedPlay,
-              color: primaryColor,
-              size: 100,
-            ),
-          ),
-        ),
-        const SizedBox(height: 20),
-        Text(
-          ConstantString().start,
-          style: TextStyle(
-            color: primaryColor,
-            fontSize: 40,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        _buildStartButton(context, primaryColor),
+        const SizedBox(height: 40),
+        _buildActionCards(primaryColor),
       ],
     ),
+  );
+}
+
+Widget _buildStartButton(BuildContext context, Color primaryColor) {
+  return Column(
+    children: [
+      Container(
+        width: 280,
+        height: 280,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: ConstColor.white,
+          border: Border.all(color: primaryColor, width: 4),
+          boxShadow: [
+            BoxShadow(
+              color: primaryColor.withOpacity(0.3),
+              blurRadius: 20,
+              spreadRadius: 5,
+            ),
+          ],
+        ),
+        child: Center(
+          child: HugeIcon(
+            icon: HugeIcons.strokeRoundedPlay,
+            color: primaryColor,
+            size: 100,
+          ),
+        ),
+      ),
+      const SizedBox(height: 20),
+      Text(
+        ConstantString().start,
+        style: TextStyle(
+          color: primaryColor,
+          fontSize: 40,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ],
   );
 }
 
