@@ -20,6 +20,14 @@ abstract class IPatientRegistrationProceduresService {
       IPatientRegistrationProceduresServicePath
           .patientTransactionCreate
           .rawValue;
+  final String posRequestPath =
+      IPatientRegistrationProceduresServicePath
+          .posRequest
+          .rawValue;
+  final String posResponsePath =
+      IPatientRegistrationProceduresServicePath
+          .posResponse
+          .rawValue;
   final String patientTransactionRevenuePath =
       IPatientRegistrationProceduresServicePath
           .patientTransactionRevenue
@@ -38,6 +46,8 @@ abstract class IPatientRegistrationProceduresService {
   Future<ApiListResponse<AssocationModel>> getAssociationList(String branchId);
   Future<ApiResponse<PatientTransactionCreateResponseModel>>
   postPatientTransactionCreate(PatientTransactionCreateRequestModel request);
+  postPosRequest(Map posRequest);
+  postPosResponse(Map posResponse);
   Future<ApiResponse<PatientTransactionRevenueResponseModel>>
   postPatientTransactionRevenue(PatientTransactionDetailsResponseModel request);
   Future<ApiResponse<EmptyResponse>> postPatientTransactionCancel(
@@ -53,6 +63,8 @@ abstract class IPatientRegistrationProceduresService {
 enum IPatientRegistrationProceduresServicePath {
   associationList,
   patientTransactionCreate,
+  posRequest,
+  posResponse,
   patientTransactionRevenue,
   patientTransactionCancel,
   patientTransactionDetails,
@@ -69,6 +81,10 @@ extension IMandatoryServicePathExtension
         return '/patient-transaction/associations';
       case IPatientRegistrationProceduresServicePath.patientTransactionCreate:
         return '$root/create';
+      case IPatientRegistrationProceduresServicePath.posRequest:
+        return '/pos/sent';
+      case IPatientRegistrationProceduresServicePath.posResponse:
+        return '/pos/receive';
       case IPatientRegistrationProceduresServicePath.patientTransactionRevenue:
         return '$root/revenue';
       case IPatientRegistrationProceduresServicePath.patientTransactionCancel:

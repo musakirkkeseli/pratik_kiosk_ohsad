@@ -39,6 +39,24 @@ class PatientRegistrationProceduresService
   }
 
   @override
+  postPosRequest(Map<dynamic, dynamic> posRequest) {
+    http.request<dynamic>(
+      requestFunction: () =>
+          http.post(posRequestPath, data: posRequest),
+      fromJson: (json) => json,
+    );
+  }
+
+  @override
+  postPosResponse(Map<dynamic, dynamic> posResponse) {
+    http.request<dynamic>(
+      requestFunction: () =>
+          http.post(posResponsePath, data: posResponse),
+      fromJson: (json) => json,
+    );
+  }
+
+  @override
   Future<ApiResponse<PatientTransactionRevenueResponseModel>>
   postPatientTransactionRevenue(
     PatientTransactionDetailsResponseModel request,

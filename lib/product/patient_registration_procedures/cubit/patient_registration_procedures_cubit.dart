@@ -448,6 +448,11 @@ class PatientRegistrationProceduresCubit
       final datePart =
           '${now.hour}'.padLeft(2, '0') + '${now.minute}'.padLeft(2, '0');
       final orderNo = "$datePart${updatedModel.patientId ?? '0000000'}";
+      await service.postPosRequest({
+        'orderNo': orderNo,
+        'products': products.map((e) => e.toJson()).toList(),
+        'customerInfo': customerInfo,
+      });
       final PosGetSaleResultResponse result = await PosService.instance
           .completeSaleWithPolling(
             orderNo: orderNo,
@@ -457,7 +462,7 @@ class PatientRegistrationProceduresCubit
               MyLog.debug('Polling Attempt: $attempt, Status: $status');
             },
           );
-
+      await service.postPosResponse(result.toJson());
       if (result.success && result.saleStatus == PosSaleStatus.success) {
         SnackbarService().showSnackBar(ConstantString().paymentSuccess);
         patientPriceDetailModel.posContent = PosContent(
