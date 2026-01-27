@@ -16,12 +16,12 @@ enum EnumPaymentResultType {
     }
   }
 
-  MaterialColor get color {
+  Icon get icon {
     switch (this) {
       case EnumPaymentResultType.success:
-        return ConstColor.green;
+        return Icon(Icons.check_circle, color: ConstColor.green, size: 100);
       case EnumPaymentResultType.failure:
-        return ConstColor.red;
+        return Icon(Icons.cancel, color: ConstColor.red, size: 100);
     }
   }
 
