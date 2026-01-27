@@ -113,16 +113,16 @@ class _PatientLoginViewState extends State<PatientLoginView> {
                   _isOpenVerifyPhoneNumberDialog = true;
                   if (!state.isNewIdCardLogin) {
                     if (state.phoneNumber.length == 10) {
-                      verifyPhoneDialog(context, state.phoneNumber);
+                      // verifyPhoneDialog(context, state.phoneNumber);
                     } else {
-                      AppDialog(context).infoDialog(
-                        ConstantString().warning,
-                        ConstantString().phoneNumberNotFound,
-                        afterFunc: (onValue) {
-                          _isOpenVerifyPhoneNumberDialog = false;
-                          _isOpenWarningPhoneNumberDialog = false;
-                        },
-                      );
+                      // AppDialog(context).infoDialog(
+                      //   ConstantString().warning,
+                      //   ConstantString().phoneNumberNotFound,
+                      //   afterFunc: (onValue) {
+                      //     _isOpenVerifyPhoneNumberDialog = false;
+                      //     _isOpenWarningPhoneNumberDialog = false;
+                      //   },
+                      // );
                     }
                   }
                 }
