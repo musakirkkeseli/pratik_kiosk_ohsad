@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,12 +21,40 @@ class WelcomeScreen extends StatefulWidget {
   State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
+
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+  Timer? _sliderTimer;
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<PatientLoginCubit>().fetchSliders();
+    });
+  }
+
+  @override
+  void dispose() {
+    _sliderTimer?.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _startAutoSlide(int itemCount) {
+    _sliderTimer?.cancel();
+    if (itemCount <= 1) return;
+    _sliderTimer = Timer.periodic(const Duration(seconds: 4), (timer) {
+      if (!mounted) return;
+      setState(() {
+        _currentPage = (_currentPage + 1) % itemCount;
+        _pageController.animateToPage(
+          _currentPage,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      });
     });
   }
 
@@ -39,7 +69,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       body: Column(
         children: [
           _slider(context),
-
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -233,6 +262,12 @@ Widget _slider(BuildContext context) {
   return BlocBuilder<PatientLoginCubit, PatientLoginState>(
     builder: (context, state) {
       final sliders = state.sliders;
+      final _sliderState = context.findAncestorStateOfType<_WelcomeScreenState>();
+      if (_sliderState != null) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _sliderState._startAutoSlide(sliders.length);
+        });
+      }
       if (sliders.isEmpty) {
         return Container(
           height: 200,
@@ -249,6 +284,12 @@ Widget _slider(BuildContext context) {
         height: 200,
         width: double.infinity,
         child: PageView(
+          controller: _sliderState?._pageController,
+          onPageChanged: (index) {
+            if (_sliderState != null) {
+              _sliderState._currentPage = index;
+            }
+          },
           children: sliders.map((slider) {
             return CustomImage.image(
               slider.path ?? "",
