@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:label="kiosk"
+        android:label="BankoAsist"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
