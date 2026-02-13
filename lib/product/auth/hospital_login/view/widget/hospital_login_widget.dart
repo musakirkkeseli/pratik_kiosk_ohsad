@@ -9,6 +9,7 @@ import '../../../../../features/utility/const/constant_string.dart';
 import '../../../../../features/utility/custom_textfield_widget.dart';
 import '../../../../../features/utility/enum/enum_textformfield.dart';
 import '../../cubit/hospital_login_cubit.dart';
+import 'log_viewer_page.dart';
 
 class HospitalLoginWidget extends StatefulWidget {
   final String deviceId;
@@ -23,10 +24,10 @@ class _HospitalLoginWidgetState extends State<HospitalLoginWidget> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController userNameController = kReleaseMode
       ? TextEditingController()
-      : TextEditingController(text: "buhara");
+      : TextEditingController(text: "akay");
   final TextEditingController passwordController = kReleaseMode
       ? TextEditingController()
-      : TextEditingController(text: "buhara");
+      : TextEditingController(text: "akay123");
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +114,7 @@ class _HospitalLoginWidgetState extends State<HospitalLoginWidget> {
                         ),
                         // const PdfTestButton(),
                         Center(child: Text(widget.deviceId)),
+                        // DebugLogButton(),
                       ],
                     ),
                   ),
