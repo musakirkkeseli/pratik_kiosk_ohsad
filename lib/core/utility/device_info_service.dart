@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'logger_service.dart';
 
 class DeviceInfoService {
@@ -13,7 +14,8 @@ class DeviceInfoService {
   String? _deviceId;
   String? _deviceModel;
   String? _osVersion;
-  final fakeDeviceId = 'BP1A.250505.005';
+  // final fakeDeviceId = 'BP1A.250505.005';
+  final fakeDeviceId = 'TKQ1.230110.001';
 
   Future<String> getDeviceId() async {
     if (_deviceId != null) {
@@ -21,7 +23,7 @@ class DeviceInfoService {
     }
 
     try {
-      if (Platform.isAndroid) {
+      if (Platform.isAndroid && !kDebugMode) {
         final androidInfo = await _deviceInfo.androidInfo;
         // Android ID'yi kullan
         _deviceId = androidInfo.id;
