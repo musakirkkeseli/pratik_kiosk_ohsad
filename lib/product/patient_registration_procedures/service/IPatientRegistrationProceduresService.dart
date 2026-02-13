@@ -21,13 +21,11 @@ abstract class IPatientRegistrationProceduresService {
           .patientTransactionCreate
           .rawValue;
   final String posRequestPath =
-      IPatientRegistrationProceduresServicePath
-          .posRequest
-          .rawValue;
+      IPatientRegistrationProceduresServicePath.posRequest.rawValue;
   final String posResponsePath =
-      IPatientRegistrationProceduresServicePath
-          .posResponse
-          .rawValue;
+      IPatientRegistrationProceduresServicePath.posResponse.rawValue;
+  final String posErrorResponsePath =
+      IPatientRegistrationProceduresServicePath.posErrorResponse.rawValue;
   final String patientTransactionRevenuePath =
       IPatientRegistrationProceduresServicePath
           .patientTransactionRevenue
@@ -48,6 +46,7 @@ abstract class IPatientRegistrationProceduresService {
   postPatientTransactionCreate(PatientTransactionCreateRequestModel request);
   postPosRequest(Map posRequest);
   postPosResponse(Map posResponse);
+  postPosErrorResponse(String type, Map posErrorResponse);
   Future<ApiResponse<PatientTransactionRevenueResponseModel>>
   postPatientTransactionRevenue(PatientTransactionDetailsResponseModel request);
   Future<ApiResponse<EmptyResponse>> postPatientTransactionCancel(
@@ -65,6 +64,7 @@ enum IPatientRegistrationProceduresServicePath {
   patientTransactionCreate,
   posRequest,
   posResponse,
+  posErrorResponse,
   patientTransactionRevenue,
   patientTransactionCancel,
   patientTransactionDetails,
@@ -85,6 +85,8 @@ extension IMandatoryServicePathExtension
         return '/pos/sent';
       case IPatientRegistrationProceduresServicePath.posResponse:
         return '/pos/receive';
+      case IPatientRegistrationProceduresServicePath.posErrorResponse:
+        return '/pos/error-log';
       case IPatientRegistrationProceduresServicePath.patientTransactionRevenue:
         return '$root/revenue';
       case IPatientRegistrationProceduresServicePath.patientTransactionCancel:

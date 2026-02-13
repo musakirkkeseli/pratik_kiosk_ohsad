@@ -314,6 +314,9 @@ class PatientRegistrationProceduresCubit
         // );
         // nextStep();
       } else {
+        await service.postPosErrorResponse("patientTransactionCreate else", {
+          "message": res.message,
+        });
         patientTransactionCancel();
         safeEmit(
           state.copyWith(
@@ -324,6 +327,10 @@ class PatientRegistrationProceduresCubit
         );
       }
     } on NetworkException catch (e) {
+      await service.postPosErrorResponse(
+        "patientTransactionCreate NetworkException",
+        {"message": e.toString()},
+      );
       patientTransactionCancel();
       safeEmit(
         state.copyWith(
@@ -333,6 +340,9 @@ class PatientRegistrationProceduresCubit
         ),
       );
     } catch (e) {
+      await service.postPosErrorResponse("patientTransactionCreate catch", {
+        "message": e.toString(),
+      });
       patientTransactionCancel();
       safeEmit(
         state.copyWith(
@@ -369,6 +379,9 @@ class PatientRegistrationProceduresCubit
           );
           nextStep();
         } else {
+          await service.postPosErrorResponse("fetchPatientPrice else", {
+            "message": res.message,
+          });
           patientTransactionCancel();
           safeEmit(
             state.copyWith(
@@ -378,6 +391,9 @@ class PatientRegistrationProceduresCubit
           );
         }
       } else {
+        await service.postPosErrorResponse("fetchPatientPrice else2", {
+          "message": res.message,
+        });
         patientTransactionCancel();
         safeEmit(
           state.copyWith(
@@ -387,6 +403,9 @@ class PatientRegistrationProceduresCubit
         );
       }
     } on NetworkException catch (e) {
+      await service.postPosErrorResponse("fetchPatientPrice NetworkException", {
+        "message": e.toString(),
+      });
       patientTransactionCancel();
       safeEmit(
         state.copyWith(
@@ -395,6 +414,9 @@ class PatientRegistrationProceduresCubit
         ),
       );
     } catch (e) {
+      await service.postPosErrorResponse("fetchPatientPrice catch", {
+        "message": e.toString(),
+      });
       patientTransactionCancel();
       safeEmit(
         state.copyWith(
@@ -458,6 +480,7 @@ class PatientRegistrationProceduresCubit
             orderNo: orderNo,
             products: products,
             customerInfo: customerInfo,
+            maxPollingAttempts: 30,
             onPolling: (int attempt, PosSaleStatus status) {
               MyLog.debug('Polling Attempt: $attempt, Status: $status');
             },
@@ -476,6 +499,7 @@ class PatientRegistrationProceduresCubit
         );
         patientTransactionRevenue(patientPriceDetailModel);
       } else {
+        await service.postPosErrorResponse("else", result.toJson());
         SnackbarService().showSnackBar(ConstantString().paymentFailure);
         patientTransactionCancel();
         safeEmit(
@@ -489,6 +513,9 @@ class PatientRegistrationProceduresCubit
       SnackbarService().showSnackBar(
         "${ConstantString().paymentFailure} ${e.message}",
       );
+      await service.postPosErrorResponse("PosException", {
+        "message": e.message,
+      });
       patientTransactionCancel();
       safeEmit(
         state.copyWith(
@@ -497,6 +524,7 @@ class PatientRegistrationProceduresCubit
         ),
       );
     } catch (e) {
+      await service.postPosErrorResponse("catch", {"message": e.toString()});
       SnackbarService().showSnackBar("${ConstantString().paymentFailure}, $e");
       patientTransactionCancel();
       safeEmit(

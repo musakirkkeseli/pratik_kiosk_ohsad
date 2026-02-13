@@ -41,8 +41,7 @@ class PatientRegistrationProceduresService
   @override
   postPosRequest(Map<dynamic, dynamic> posRequest) {
     http.request<dynamic>(
-      requestFunction: () =>
-          http.post(posRequestPath, data: posRequest),
+      requestFunction: () => http.post(posRequestPath, data: posRequest),
       fromJson: (json) => json,
     );
   }
@@ -50,8 +49,18 @@ class PatientRegistrationProceduresService
   @override
   postPosResponse(Map<dynamic, dynamic> posResponse) {
     http.request<dynamic>(
-      requestFunction: () =>
-          http.post(posResponsePath, data: posResponse),
+      requestFunction: () => http.post(posResponsePath, data: posResponse),
+      fromJson: (json) => json,
+    );
+  }
+
+  @override
+  postPosErrorResponse(String type, Map<dynamic, dynamic> posErrorResponse) {
+    http.request<dynamic>(
+      requestFunction: () => http.post(
+        posErrorResponsePath,
+        data: {"type": type, "data": posErrorResponse},
+      ),
       fromJson: (json) => json,
     );
   }
