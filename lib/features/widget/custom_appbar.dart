@@ -23,6 +23,7 @@ class CustomAppBar extends StatelessWidget {
               imageUrl: logoUrl,
               fit: BoxFit.contain,
               height: 130,
+              width: 400,
               placeholder: (context, url) => SizedBox(
                 child: Center(
                   child: CircularProgressIndicator(color: ConstColor.white),
