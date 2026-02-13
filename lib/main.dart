@@ -5,7 +5,6 @@ import 'package:kiosk/core/widget/snackbar_service.dart';
 import 'package:provider/provider.dart';
 
 import 'core/platform/kiosk_admin_trigged.dart';
-import 'core/platform/kiosk_native.dart';
 import 'core/utility/dynamic_theme_provider.dart';
 import 'core/utility/language_manager.dart';
 import 'core/utility/login_status_service.dart';
@@ -23,15 +22,6 @@ Future<void> main() async {
   await AppInitialize.initialize();
   var connectivityResult = await (Connectivity().checkConnectivity());
   PeriodicHealthCheckService().start();
-
-  // final isOwner1 = await KioskNative.isDeviceOwner();
-  // final started = await KioskNative.startKiosk();
-  // debugPrint("KIOSK isOwner=$isOwner1 started=$started");
-
-  final isOwner = await KioskNative.isDeviceOwner();
-  if (isOwner) {
-    await KioskNative.startKiosk();
-  }
 
   runApp(
     EasyLocalization(
@@ -111,7 +101,6 @@ class MainApp extends StatelessWidget {
           },
           // builder: (context, child) {
           //   return NetworkAwareWidget(onlineChild: child);
-
           // },
         ),
       ),

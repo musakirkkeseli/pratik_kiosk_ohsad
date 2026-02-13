@@ -17,9 +17,25 @@ final class AppInitialize {
     // };
 
     final _ = PosService.instance;
+    // final MyLog _log = MyLog('AppInitialize');
 
     await dotenv.load(fileName: Environment.fileName);
 
     await AnalyticsService().init();
+
+    // // final isOwner1 = await KioskNative.isDeviceOwner();
+    // // final started = await KioskNative.startKiosk();
+    // // debugPrint("KIOSK isOwner=$isOwner1 started=$started");
+
+    // try {
+    //   if (Platform.isAndroid) {
+    //     final isOwner = await KioskNative.isDeviceOwner();
+    //     if (isOwner) {
+    //       await KioskNative.startKiosk();
+    //     }
+    //   }
+    // } catch (e) {
+    //   _log.e('Error getting device ID: $e');
+    // }
   }
 }
