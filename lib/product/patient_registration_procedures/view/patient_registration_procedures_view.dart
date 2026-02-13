@@ -4,6 +4,7 @@ import 'package:kiosk/features/utility/const/constant_string.dart';
 import 'package:kiosk/features/utility/navigation_service.dart';
 import 'package:kiosk/features/widget/app_dialog.dart';
 
+import '../../../core/widget/snackbar_service.dart';
 import '../../../features/utility/const/constant_color.dart';
 import '../../../features/utility/enum/enum_general_state_status.dart';
 import '../../../features/utility/enum/enum_patient_registration_procedures.dart';
@@ -89,9 +90,7 @@ class PatientRegistrationProceduresView extends StatelessWidget {
                       );
                       break;
                     default:
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(state.message ?? 'Error')),
-                      );
+                      SnackbarService().showSnackBar(state.message ?? 'Error');
                   }
                   break;
                 default:
