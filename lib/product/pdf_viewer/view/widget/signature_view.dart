@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kiosk/features/utility/extension/text_theme_extension.dart';
 import 'package:signature/signature.dart';
 
+import '../../../../core/widget/snackbar_service.dart';
 import '../../../../features/utility/const/constant_color.dart';
 import '../../../../features/utility/const/constant_string.dart';
 
@@ -54,16 +55,11 @@ Future<Uint8List?> showSignaturePopup(BuildContext context) async {
               final signature = await controller.toPngBytes();
               Navigator.of(context).pop(signature);
             } else {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(ConstantString().pleaseSignFirst)),
-              );
+              SnackbarService().showSnackBar(ConstantString().pleaseSignFirst);
             }
           },
           icon: const Icon(Icons.check, color: ConstColor.white),
-          label: Text(
-            ConstantString().save,
-            style: context.saveButtonText,
-          ),
+          label: Text(ConstantString().save, style: context.saveButtonText),
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             backgroundColor: ConstColor.green,
