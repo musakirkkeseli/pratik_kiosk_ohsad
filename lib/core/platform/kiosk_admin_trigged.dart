@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../features/utility/navigation_service.dart';
+import '../widget/snackbar_service.dart';
 import 'admin_pin_dialog.dart';
 import 'kiosk_native.dart';
 
@@ -57,15 +58,11 @@ class _KioskAdminTriggerState extends State<KioskAdminTrigger> {
       if (ok == true) {
         await KioskNative.stopKiosk();
         if (mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('Kiosk modu kapatıldı')));
+          SnackbarService().showSnackBar('Kiosk modu kapatıldı');
         }
       } else if (ok == false) {
         if (mounted) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(const SnackBar(content: Text('PIN hatalı')));
+          SnackbarService().showSnackBar('PIN hatalı');
         }
       }
     } catch (e) {
@@ -89,17 +86,17 @@ class _KioskAdminTriggerState extends State<KioskAdminTrigger> {
 
         // 🔒 Gizli tıklama alanı (sol üst)
         // Logo senin UI’da başka yerdeyse burayı taşıyabiliriz.
-        Positioned(
-          left: 0,
-          top: MediaQuery.of(context).padding.top, // ✅ status bar altı
-          width: 200, // ✅ test için büyüttük
-          height: 160,
-          child: GestureDetector(
-            behavior: HitTestBehavior.opaque, // ✅ daha güvenli
-            onTap: _bump,
-            child: const SizedBox.expand(),
-          ),
-        ),
+        // Positioned(
+        //   left: 0,
+        //   top: MediaQuery.of(context).padding.top, // ✅ status bar altı
+        //   width: 200, // ✅ test için büyüttük
+        //   height: 160,
+        //   child: GestureDetector(
+        //     behavior: HitTestBehavior.opaque, // ✅ daha güvenli
+        //     onTap: _bump,
+        //     child: const SizedBox.expand(),
+        //   ),
+        // ),
       ],
     );
   }
