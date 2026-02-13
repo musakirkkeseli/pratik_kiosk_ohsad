@@ -110,13 +110,4 @@ class AppDialog {
       ],
     );
   }
-
-  void showSnackBar(String message) {
-    final snackBar = SnackBar(
-      backgroundColor: ConstColor.primaryColor,
-      content: Text(message),
-      duration: const Duration(seconds: 3),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
 }
