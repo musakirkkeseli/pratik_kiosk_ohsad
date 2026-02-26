@@ -3,6 +3,7 @@ import 'package:pratik_pos_integration/pratik_pos_integration.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../../core/utility/analytics_service.dart';
+import '../../core/utility/sentry_service.dart';
 import 'const/environment.dart';
 
 final class AppInitialize {
@@ -20,6 +21,9 @@ final class AppInitialize {
     // final MyLog _log = MyLog('AppInitialize');
 
     await dotenv.load(fileName: Environment.fileName);
+
+    // Sentry'yi başlat
+    await SentryService().init();
 
     await AnalyticsService().init();
 

@@ -6,6 +6,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import '../../features/utility/const/environment.dart';
 import 'logger_service.dart';
 import 'mixpanel_tracker.dart';
+import 'sentry_service.dart';
 import 'session_manager.dart';
 
 class AnalyticsService {
@@ -177,13 +178,12 @@ class AnalyticsService {
     Map<String, dynamic>? extras,
     String? tag,
   }) {
-    Sentry.captureException(
+    // Yeni SentryService'i kullan
+    SentryService().logException(
       error,
-      stackTrace: stackTrace,
-      withScope: (scope) {
-        if (tag != null) scope.setTag('tag', tag);
-        extras?.forEach(scope.setExtra);
-      },
+      stackTrace,
+      extra: extras,
+      tag: tag,
     );
   }
 
@@ -194,13 +194,12 @@ class AnalyticsService {
     Map<String, dynamic>? extras,
     String? tag,
   }) {
-    Sentry.captureMessage(
+    // Yeni SentryService'i kullan
+    SentryService().logEvent(
       message,
       level: level,
-      withScope: (scope) {
-        if (tag != null) scope.setTag('tag', tag);
-        extras?.forEach(scope.setExtra);
-      },
+      extra: extras,
+      tag: tag,
     );
   }
 

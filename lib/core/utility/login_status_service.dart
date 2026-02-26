@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:pratik_pos_integration/pratik_pos_integration.dart';
 
 import '../../features/utility/navigation_service.dart';
+import 'sentry_service.dart';
 
 enum LoginStatus { online, offline }
 
@@ -57,6 +58,13 @@ class LoginStatusService {
   }
 
   Future<void> logout() async {
+    // ✅ Sentry hastane context'ini temizle
+    SentryService().addBreadcrumb(
+      message: 'Hastane çıkış yaptı',
+      category: 'auth',
+    );
+    SentryService().clearHospitalContext();
+    
     _accessToken = null;
     _refreshToken = null;
     _controller.add(LoginStatus.offline);

@@ -25,6 +25,7 @@ dependencies:
   device_info_plus: ^12.2.0
   package_info_plus: ^8.1.0
   uuid: ^4.5.1
+  sentry: ^9.6.0
 
   #cache
   # shared_preferences: ^2.5.3
@@ -57,11 +58,11 @@ dependencies:
   # my packages
   pratik_pos_integration:
     git:
-      url: https://github.com/musakirkkeseli/pratik_pos_integration.git
+      url: git@github.com:musakirkkeseli/pratik_pos_integration.git
       ref: main
   mylog:
     git:
-      url: https://github.com/musakirkkeseli/mylog.git
+      url: git@github.com:musakirkkeseli/mylog.git
       ref: main
   
 dev_dependencies:

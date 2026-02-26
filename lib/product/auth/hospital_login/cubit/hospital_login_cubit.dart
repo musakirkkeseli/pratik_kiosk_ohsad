@@ -8,6 +8,7 @@ import '../../../../core/utility/base_cubit.dart';
 import '../../../../core/utility/dynamic_theme_provider.dart';
 import '../../../../core/utility/logger_service.dart';
 import '../../../../core/utility/login_status_service.dart';
+import '../../../../core/utility/sentry_service.dart';
 import '../../../../core/widget/snackbar_service.dart';
 import '../../../../features/utility/enum/enum_general_state_status.dart';
 import '../model/config_response_model.dart';
@@ -111,6 +112,15 @@ class HospitalLoginCubit extends BaseCubit<HospitalLoginState> {
       if (resp.success && resp.data is ConfigResponseModel) {
         ConfigResponseModel configResponseModel =
             resp.data ?? ConfigResponseModel();
+        
+        // ✅ Sentry'ye hastane bilgilerini set et
+        final hospitalName = configResponseModel.hospitalName ?? 'Unknown Hospital';
+        SentryService().setHospitalContext(
+          hospitalName: hospitalName,
+          kioskDeviceId: kioskDeviceId,
+        );
+        _log.i('Sentry context set: $hospitalName - $kioskDeviceId');
+        
         safeEmit(
           state.copyWith(
             status: EnumGeneralStateStatus.success,

@@ -443,7 +443,7 @@ packages:
       path: "."
       ref: main
       resolved-ref: d45c127124ab46571a70d21732dbd3fa6b847596
-      url: "https://github.com/musakirkkeseli/mylog.git"
+      url: "git@github.com:musakirkkeseli/mylog.git"
     source: git
     version: "0.0.1"
   nested:
@@ -619,8 +619,8 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: "7eb6cfe4c270bc64bdd08e725b93acabdaf0c601"
-      url: "https://github.com/musakirkkeseli/pratik_pos_integration.git"
+      resolved-ref: "295e1b0ac73a513d7effc3e2478032aa11f8ffe9"
+      url: "git@github.com:musakirkkeseli/pratik_pos_integration.git"
     source: git
     version: "0.0.1"
   provider:
@@ -656,21 +656,21 @@ packages:
     source: hosted
     version: "0.28.0"
   sentry:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: sentry
-      sha256: d9f3dcf1ecdd600cf9ce134f622383adde5423ecfdaf0ca9b20fbc1c44849337
+      sha256: e57e57123968b673c8ca19892eecf93113b4811b8e5cd5d165749ca7f7319fdb
       url: "https://pub.dev"
     source: hosted
-    version: "9.6.0"
+    version: "9.13.0"
   sentry_flutter:
     dependency: "direct main"
     description:
       name: sentry_flutter
-      sha256: "37deb4ef8837d10b5c1f527ec18591f8d2d2da9c34f19b3d97ccbbe7f84077c0"
+      sha256: c8f5b805c0346cd0c93b09e584675af7ed8c3ef36c3589181ad19b4adce35954
       url: "https://pub.dev"
     source: hosted
-    version: "9.6.0"
+    version: "9.13.0"
   shared_preferences:
     dependency: transitive
     description:
