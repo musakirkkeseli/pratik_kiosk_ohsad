@@ -2,11 +2,12 @@ import '../../../features/model/api_list_response_model.dart';
 import '../../../features/model/api_response_model.dart';
 import '../../../features/model/empty_response.dart';
 import '../../../features/model/patient_price_detail_model.dart';
-import '../../appointments/model/appointments_model.dart';
 import '../model/association_model.dart';
+import '../model/control_inspection_process_request_model.dart';
 import '../model/patient_transaction_create_request_model.dart';
 import '../model/patient_transaction_create_response_model.dart';
 import '../model/patient_transaction_revenue_response_model.dart';
+import '../model/query_process_response_model.dart';
 import 'IPatientRegistrationProceduresService.dart';
 
 class PatientRegistrationProceduresService
@@ -107,14 +108,25 @@ class PatientRegistrationProceduresService
   }
 
   @override
-  Future<ApiResponse<AppointmentsModel>> postAppointmentByBranch(
+  Future<ApiResponse<QueryProcessResponseModel>> postQueryProcess(
     String branchId,
   ) async {
-    return http.request<AppointmentsModel>(
+    return http.request<QueryProcessResponseModel>(
       requestFunction: () =>
-          http.post(appointmentByBranchPath, data: {"branchId": branchId}),
+          http.post(queryProcessPath, data: {"branchId": branchId}),
       fromJson: (json) =>
-          AppointmentsModel.fromJson(json as Map<String, dynamic>),
+          QueryProcessResponseModel.fromJson(json as Map<String, dynamic>),
+    );
+  }
+
+  @override
+  Future<ApiResponse<EmptyResponse>> postAddControlInspectionProcess(
+    ControlInspectionProcessRequestModel request,
+  ) async {
+    return http.request<EmptyResponse>(
+      requestFunction: () =>
+          http.post(addControlInspectionProcessPath, data: request.toJson()),
+      fromJson: (json) => EmptyResponse.fromJson(json as Map<String, dynamic>),
     );
   }
 }

@@ -11,14 +11,17 @@ import '../../../features/utility/const/constant_string.dart';
 import '../../../features/utility/enum/enum_general_state_status.dart';
 import '../../../features/utility/enum/enum_patient_registration_procedures.dart';
 import '../../../features/utility/enum/enum_payment_result_type.dart';
+import '../../../features/utility/enum/enum_query_process_type.dart';
 import '../../appointments/model/appointments_model.dart';
 import '../../doctor/model/doctor_model.dart';
 import '../../../features/model/patient_mandatory_model.dart';
 import '../model/association_model.dart';
 import '../../section/model/section_model.dart';
+import '../model/control_inspection_process_request_model.dart';
 import '../model/patient_registration_procedures_request_model.dart';
 import '../model/patient_transaction_create_request_model.dart';
 import '../model/patient_transaction_create_response_model.dart';
+import '../model/query_process_response_model.dart';
 import '../service/IPatientRegistrationProceduresService.dart';
 
 part 'patient_registration_procedures_state.dart';
@@ -98,19 +101,63 @@ class PatientRegistrationProceduresCubit
       updatedModel.branchName = section.sectionName;
       _trackButton('select_section');
       try {
-        final res = await service.postAppointmentByBranch(
+        final res = await service.postQueryProcess(
           section.sectionId.toString(),
         );
 
-        if (res.success && res.data is AppointmentsModel) {
-          AppointmentsModel appointmentsModel = res.data!;
-          safeEmit(
-            state.copyWith(
-              status: EnumGeneralStateStatus.success,
-              warningCurrentAppointment: true,
-              appointmentsModel: appointmentsModel,
-            ),
-          );
+        if (res.success && res.data is QueryProcessResponseModel) {
+          QueryProcessResponseModel queryProcessResponseModel = res.data!;
+          switch (queryProcessResponseModel.type) {
+            case EnumQueryProcessType.appointment:
+              if (queryProcessResponseModel.appointment is AppointmentsModel) {
+                AppointmentsModel appointmentsModel =
+                    queryProcessResponseModel.appointment ??
+                    AppointmentsModel();
+                safeEmit(
+                  state.copyWith(
+                    status: EnumGeneralStateStatus.success,
+                    queryProcessType: EnumQueryProcessType.appointment,
+                    appointmentsModel: appointmentsModel,
+                  ),
+                );
+              }
+              break;
+            case EnumQueryProcessType.transaction:
+              Transaction transaction =
+                  queryProcessResponseModel.transaction ?? Transaction();
+              safeEmit(
+                state.copyWith(
+                  status: EnumGeneralStateStatus.success,
+                  queryProcessType: EnumQueryProcessType.transaction,
+                  transaction: transaction,
+                ),
+              );
+              break;
+            case EnumQueryProcessType.appointmentWithTransaction:
+              AppointmentsModel appointmentsModel =
+                  queryProcessResponseModel.appointment ?? AppointmentsModel();
+              Transaction transaction =
+                  queryProcessResponseModel.transaction ?? Transaction();
+              safeEmit(
+                state.copyWith(
+                  status: EnumGeneralStateStatus.success,
+                  queryProcessType:
+                      EnumQueryProcessType.appointmentWithTransaction,
+                  appointmentsModel: appointmentsModel,
+                  transaction: transaction,
+                ),
+              );
+              break;
+            default:
+              safeEmit(
+                state.copyWith(
+                  status: EnumGeneralStateStatus.success,
+                  model: updatedModel,
+                ),
+              );
+              nextStep();
+              break;
+          }
           // updatedModel.appointmentId = appointmentsModel.appointmentID;
           // updatedModel.doctorId = appointmentsModel.doctorID;
           // updatedModel.doctorName = appointmentsModel.doctorName;
@@ -154,8 +201,8 @@ class PatientRegistrationProceduresCubit
     }
   }
 
-  clearWarningCurrentAppointment() {
-    safeEmit(state.copyWith(warningCurrentAppointment: false));
+  clearQueryProcessType() {
+    safeEmit(state.copyWith(queryProcessType: null));
   }
 
   continueWithAppointment() {
@@ -177,8 +224,64 @@ class PatientRegistrationProceduresCubit
     }
   }
 
-  clearAppointmentsModel() {
-    safeEmit(state.copyWith(appointmentsModel: null));
+  continueWithControlInspection(bool isHaveAppointment) async {
+    safeEmit(state.copyWith(status: EnumGeneralStateStatus.loading));
+    if (state.transaction != null) {
+      try {
+        final res = await service.postAddControlInspectionProcess(
+          ControlInspectionProcessRequestModel(
+            appointmentId: isHaveAppointment
+                ? state.appointmentsModel!.appointmentID ?? '0'
+                : null,
+            ptId: state.transaction!.ptId ?? '',
+          ),
+        );
+        if (res.success == true) {
+          safeEmit(
+            state.copyWith(
+              status: EnumGeneralStateStatus.success,
+              message: ConstantString().controlInspectionProcessSuccess,
+            ),
+          );
+        } else {
+          safeEmit(
+            state.copyWith(
+              status: EnumGeneralStateStatus.failure,
+              message: res.message,
+              isRegisrrationWarning: true,
+            ),
+          );
+        }
+      } on NetworkException catch (e) {
+        safeEmit(
+          state.copyWith(
+            status: EnumGeneralStateStatus.failure,
+            message: e.message,
+            isRegisrrationWarning: true,
+          ),
+        );
+      } catch (e) {
+        safeEmit(
+          state.copyWith(
+            status: EnumGeneralStateStatus.failure,
+            message: ConstantString().errorOccurred,
+            isRegisrrationWarning: true,
+          ),
+        );
+      }
+    } else {
+      safeEmit(
+        state.copyWith(
+          status: EnumGeneralStateStatus.failure,
+          message: ConstantString().errorOccurred,
+          isRegisrrationWarning: true,
+        ),
+      );
+    }
+  }
+
+  clearAppointmentAndTransaction() {
+    safeEmit(state.copyWith(appointmentsModel: null, transaction: null));
   }
 
   void selectDoctor(DoctorItems section) {

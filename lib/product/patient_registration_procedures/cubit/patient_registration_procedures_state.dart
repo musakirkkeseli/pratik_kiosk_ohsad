@@ -8,8 +8,9 @@ class PatientRegistrationProceduresState {
   final String? message;
   final EnumPaymentResultType? paymentResultType;
   final String? totalAmount;
-  final bool warningCurrentAppointment;
+  final EnumQueryProcessType? queryProcessType;
   final AppointmentsModel? appointmentsModel;
+  final Transaction? transaction;
   final bool isConnettedPos;
   final bool isRegisrrationWarning;
   final bool isRequiredAssociationFetch;
@@ -22,8 +23,9 @@ class PatientRegistrationProceduresState {
     this.message,
     this.paymentResultType,
     this.totalAmount,
-    this.warningCurrentAppointment = false,
+    this.queryProcessType,
     this.appointmentsModel,
+    this.transaction,
     this.isConnettedPos = true,
     this.isRegisrrationWarning = false,
     this.isRequiredAssociationFetch = false,
@@ -37,8 +39,9 @@ class PatientRegistrationProceduresState {
     String? message,
     EnumPaymentResultType? paymentResultType,
     String? totalAmount,
-    bool? warningCurrentAppointment,
+    EnumQueryProcessType? queryProcessType,
     AppointmentsModel? appointmentsModel,
+    Transaction? transaction,
     bool? isConnettedPos,
     bool? isRegisrrationWarning,
     bool? isRequiredAssociationFetch,
@@ -51,9 +54,9 @@ class PatientRegistrationProceduresState {
       message: message,
       paymentResultType: paymentResultType ?? this.paymentResultType,
       totalAmount: totalAmount ?? this.totalAmount,
-      warningCurrentAppointment:
-          warningCurrentAppointment ?? this.warningCurrentAppointment,
+      queryProcessType: queryProcessType,
       appointmentsModel: appointmentsModel ?? this.appointmentsModel,
+      transaction: transaction ?? this.transaction,
       isConnettedPos: isConnettedPos ?? this.isConnettedPos,
       isRegisrrationWarning:
           isRegisrrationWarning ?? this.isRegisrrationWarning,

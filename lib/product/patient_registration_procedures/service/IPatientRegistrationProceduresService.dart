@@ -3,11 +3,12 @@ import '../../../features/model/api_list_response_model.dart';
 import '../../../features/model/api_response_model.dart';
 import '../../../features/model/empty_response.dart';
 import '../../../features/model/patient_price_detail_model.dart';
-import '../../appointments/model/appointments_model.dart';
 import '../model/association_model.dart';
+import '../model/control_inspection_process_request_model.dart';
 import '../model/patient_transaction_create_request_model.dart';
 import '../model/patient_transaction_create_response_model.dart';
 import '../model/patient_transaction_revenue_response_model.dart';
+import '../model/query_process_response_model.dart';
 
 abstract class IPatientRegistrationProceduresService {
   final IHttpService http;
@@ -38,8 +39,10 @@ abstract class IPatientRegistrationProceduresService {
       IPatientRegistrationProceduresServicePath
           .patientTransactionDetails
           .rawValue;
-  final String appointmentByBranchPath =
-      IPatientRegistrationProceduresServicePath.appointmentByBranch.rawValue;
+  final String queryProcessPath =
+      IPatientRegistrationProceduresServicePath.queryProcess.rawValue;
+  final String addControlInspectionProcessPath =
+      IPatientRegistrationProceduresServicePath.addControlInspectionProcess.rawValue;
 
   Future<ApiListResponse<AssocationModel>> getAssociationList(String branchId);
   Future<ApiResponse<PatientTransactionCreateResponseModel>>
@@ -54,8 +57,11 @@ abstract class IPatientRegistrationProceduresService {
   );
   Future<ApiResponse<PatientTransactionDetailsResponseModel>>
   postPatientTransactionDetails(String patientId);
-  Future<ApiResponse<AppointmentsModel>> postAppointmentByBranch(
+  Future<ApiResponse<QueryProcessResponseModel>> postQueryProcess(
     String branchId,
+  );
+  Future<ApiResponse<EmptyResponse>> postAddControlInspectionProcess(
+    ControlInspectionProcessRequestModel request,
   );
 }
 
@@ -68,7 +74,8 @@ enum IPatientRegistrationProceduresServicePath {
   patientTransactionRevenue,
   patientTransactionCancel,
   patientTransactionDetails,
-  appointmentByBranch,
+  queryProcess,
+  addControlInspectionProcess,
 }
 
 //BaseUrl'nin sonuna Search sayfasının requesti için gelecek olan eklenti için oluşturuldu
@@ -93,8 +100,11 @@ extension IMandatoryServicePathExtension
         return '$root/cancel';
       case IPatientRegistrationProceduresServicePath.patientTransactionDetails:
         return '$root/transaction-details';
-      case IPatientRegistrationProceduresServicePath.appointmentByBranch:
-        return '$root/appointment-by-branch';
+      case IPatientRegistrationProceduresServicePath.queryProcess:
+        return '/appointments/processes-by-branch';
+      case IPatientRegistrationProceduresServicePath
+          .addControlInspectionProcess:
+        return '$root/add-process-pt';
     }
   }
 }
