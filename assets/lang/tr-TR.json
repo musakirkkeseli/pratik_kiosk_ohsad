@@ -150,5 +150,11 @@
   "newIdCardLogin": "Yeni Kimlik Kartı ile giriş yap",
   "newIdCardScanInstruction": "Yeni Kimlik Kartınızın arka yüzünü barkod cihazına okutunuz",
   "invalidBarcode": "Geçersiz barkod",
-  "arrivalOpening": "Geliş Açma"
+  "arrivalOpening": "Geliş Açma",
+  "controlInspectionProcessSuccess": "Kontrol Muayenesi Başarıyla Oluşturuldu",
+  "controlInspectionProcess": "Kontrol Muayenesi",
+  "controlInspectionProcessCreate": "Kontrol Muayenesi Oluştur",
+  "completedSuccessfully": "Başarıyla Tamamlandı",
+  "controlInspectionProcessMessage": "{} tarihinde {} doktorumuza oluşturulmuş dosyanızın üzerinden 10 gün geçmediği için kontrol muayenesi yapılacaktır",
+  "controlInspectionProcessAppointmentMessage": "Kontrol Muayeneniz {} tarihli bir randevunuz üzerine işlenecektir"
 }

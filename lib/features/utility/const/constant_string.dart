@@ -48,6 +48,19 @@ class ConstantString {
   String welcomeUser(String userName) =>
       LocaleKeys.welcomeUser.localArg([userName]);
 
+  String controlInspectionProcessMessage(
+    String transactionTime,
+    String transactionDoctorName,
+  ) => LocaleKeys.controlInspectionProcessMessage.localArg([
+    transactionTime,
+    transactionDoctorName,
+  ]);
+
+  String controlInspectionProcessAppointmentMessage(String appointmentDate) =>
+      LocaleKeys.controlInspectionProcessAppointmentMessage.localArg([
+        appointmentDate,
+      ]);
+
   String birthDate = LocaleKeys.birthDate.locale;
   String signIn = LocaleKeys.signIn.locale;
   String patientLogin = LocaleKeys.patientLogin.locale;
@@ -211,4 +224,10 @@ class ConstantString {
   String newIdCardScanInstruction = LocaleKeys.newIdCardScanInstruction.locale;
   String invalidBarcode = LocaleKeys.invalidBarcode.locale;
   String arrivalOpening = LocaleKeys.arrivalOpening.locale;
+  String controlInspectionProcessSuccess =
+      LocaleKeys.controlInspectionProcessSuccess.locale;
+  String controlInspectionProcess = LocaleKeys.controlInspectionProcess.locale;
+  String controlInspectionProcessCreate =
+      LocaleKeys.controlInspectionProcessCreate.locale;
+  String completedSuccessfully = LocaleKeys.completedSuccessfully.locale;
 }

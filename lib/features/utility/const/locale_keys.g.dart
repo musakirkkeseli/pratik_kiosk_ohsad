@@ -155,5 +155,11 @@ abstract class  LocaleKeys {
   static const newIdCardScanInstruction = 'newIdCardScanInstruction';
   static const invalidBarcode = 'invalidBarcode';
   static const arrivalOpening = 'arrivalOpening';
+  static const controlInspectionProcessSuccess = 'controlInspectionProcessSuccess';
+  static const controlInspectionProcess = 'controlInspectionProcess';
+  static const controlInspectionProcessCreate = 'controlInspectionProcessCreate';
+  static const completedSuccessfully = 'completedSuccessfully';
+  static const controlInspectionProcessMessage = 'controlInspectionProcessMessage';
+  static const controlInspectionProcessAppointmentMessage = 'controlInspectionProcessAppointmentMessage';
 
 }

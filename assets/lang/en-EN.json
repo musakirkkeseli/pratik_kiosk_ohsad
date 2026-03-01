@@ -150,5 +150,11 @@
   "newIdCardLogin": "Login with New ID Card",
   "newIdCardScanInstruction": "Please scan the back of your New ID Card with the barcode reader",
   "invalidBarcode": "Invalid barcode",
-  "arrivalOpening": "Arrival Check-in"
+  "arrivalOpening": "Arrival Check-in",
+  "controlInspectionProcessSuccess": "Control Inspection Process Created Successfully",
+  "controlInspectionProcess": "Control Inspection",
+  "controlInspectionProcessCreate": "Create Control Inspection",
+  "completedSuccessfully": "Completed Successfully",
+  "controlInspectionProcessMessage": "Since 10 days have not passed since the file created for you on {} with our doctor {}, a follow-up examination will be performed",
+  "controlInspectionProcessAppointmentMessage": "Your follow-up examination will be processed based on your appointment dated {}"
 }

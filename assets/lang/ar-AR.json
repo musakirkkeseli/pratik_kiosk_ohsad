@@ -151,5 +151,11 @@
   "newIdCardLogin": "تسجيل الدخول باستخدام بطاقة الهوية الجديدة",
   "newIdCardScanInstruction": "يرجى مسح الجزء الخلفي من بطاقة الهوية الجديدة الخاصة بك باستخدام قارئ الباركود",
   "invalidBarcode": "باركود غير صالح",
-  "arrivalOpening": "تسجيل الوصول"
+  "arrivalOpening": "تسجيل الوصول",
+  "controlInspectionProcessSuccess": "تم إنشاء عملية فحص التحكم بنجاح",
+  "controlInspectionProcess": "فحص التحكم",
+  "controlInspectionProcessCreate": "إنشاء فحص التحكم",
+  "completedSuccessfully": "اكتمل بنجاح",
+  "controlInspectionProcessMessage": "نظرًا لعدم مرور 10 أيام على الملف الذي تم إنشاؤه لك بتاريخ {} لدى طبيبنا {}، سيتم إجراء فحص متابعة",
+  "controlInspectionProcessAppointmentMessage": "سيتم معالجة فحص المتابعة الخاص بك بناءً على موعدك بتاريخ {}"
 }
