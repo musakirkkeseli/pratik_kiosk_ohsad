@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kiosk/product/appointments/view/appointments_view.dart';
-import 'package:kiosk/product/arrival_opening/view/arrival_opening_page.dart';
+import 'package:kiosk/product/patient_transaction_management/view/patient_transaction_management_view.dart';
 
 import '../../core/widget/login_aware_widget.dart';
 import '../../product/patient_registration_procedures/view/patient_registration_procedures_view.dart';
@@ -43,9 +43,9 @@ class RouteGenerator {
           ),
           settings: RouteSettings(name: settings.name),
         );
-      case "ArrivalOpeningView":
+      case "PatientTransactionManagementView":
         return MaterialPageRoute(
-          builder: (context) => ArrivalOpeningPage(),
+          builder: (context) => PatientTransactionManagementView(),
           settings: RouteSettings(name: settings.name),
         );
       // case "PatientTransactionView":
