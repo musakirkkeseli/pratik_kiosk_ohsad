@@ -102,7 +102,7 @@ class _LogViewerPageState extends State<LogViewerPage> {
 
       final response = await Dio().post(
         serverUrl,
-        data: {"posContent": jsonEncode(payload)},
+        data: jsonEncode(payload),
         options: Options(
           headers: {'Content-Type': 'application/json'},
           sendTimeout: const Duration(seconds: 100),
