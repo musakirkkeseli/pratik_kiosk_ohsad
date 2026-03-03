@@ -13,7 +13,7 @@ import '../extension/color_extension.dart';
 enum EnumHomeItem {
   appointments,
   registration,
-  // arrivalOpening,
+  // patientTransactionManagment,
   qr;
   // results;
 
@@ -25,7 +25,7 @@ enum EnumHomeItem {
         return ConstantString().registration;
       case EnumHomeItem.qr:
         return ConstantString().survey;
-      // case EnumHomeItem.arrivalOpening:
+      // case EnumHomeItem.patientTransactionManagment:
       //   return ConstantString().arrivalOpening;
     }
   }
@@ -44,7 +44,7 @@ enum EnumHomeItem {
         );
       case EnumHomeItem.qr:
         return Iconify(Mdi.clipboard_list, color: context.primaryColor);
-      // case EnumHomeItem.arrivalOpening:
+      // case EnumHomeItem.patientTransactionManagment:
       //   return Iconify(Mdi.account_check, color: context.primaryColor);
     }
   }
@@ -71,8 +71,8 @@ enum EnumHomeItem {
         return SectionButtonWidget();
       case EnumHomeItem.qr:
         return QuestionnaireView();
-      // case EnumHomeItem.arrivalOpening:
-      //   return ArrivalOpeningView();
+      // case EnumHomeItem.patientTransactionManagment:
+      //   return PatientTransactionManagmentButton();
     }
   }
 }
