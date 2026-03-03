@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:mylog/mylog.dart';
 
 import '../../../core/exception/network_exception.dart';
@@ -27,20 +26,29 @@ class PatientTransactionManagementCubit
       final response = await service.getPatientTransactionList();
       if (response.success == true &&
           response.data is List<PatientTransactionModel>) {
-        (response.data ?? [])[0].revenues![0].processName = "Muayene Ücreti";
-        (response.data ?? [])[0].time = "14:30";
-        (response.data ?? [])[0].date = DateFormat(
-          'dd MMMM yyyy',
-          'tr_TR',
-        ).format(DateTime.now());
-        (response.data ?? [])[0].branchName = "Kardiyoloji";
-        (response.data ?? [])[0].doctorName = "Dr. Mehmet Yılmaz";
-        safeEmit(
-          state.copyWith(
-            status: EnumGeneralStateStatus.success,
-            data: response.data ?? [],
-          ),
-        );
+        if ((response.data ?? []).isEmpty) {
+          safeEmit(
+            state.copyWith(
+              status: EnumGeneralStateStatus.failure,
+              message: response.message,
+            ),
+          );
+        } else {
+          // (response.data ?? [])[0].revenues![0].processName = "Muayene Ücreti";
+          // (response.data ?? [])[0].time = "14:30";
+          // (response.data ?? [])[0].date = DateFormat(
+          //   'dd MMMM yyyy',
+          //   'tr_TR',
+          // ).format(DateTime.now());
+          // (response.data ?? [])[0].branchName = "Kardiyoloji";
+          // (response.data ?? [])[0].doctorName = "Dr. Mehmet Yılmaz";
+          safeEmit(
+            state.copyWith(
+              status: EnumGeneralStateStatus.success,
+              data: response.data ?? [],
+            ),
+          );
+        }
       } else {
         safeEmit(
           state.copyWith(
