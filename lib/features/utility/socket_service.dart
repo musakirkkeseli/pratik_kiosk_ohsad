@@ -2,7 +2,8 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 import '../../core/utility/logger_service.dart';
 import '../../core/utility/login_status_service.dart';
-import 'const/constant_string.dart';
+import '../model/pos_http_request_model.dart';
+import 'pos_connect_http_service.dart';
 
 class SocketService {
   SocketService._internal();
@@ -10,8 +11,6 @@ class SocketService {
   factory SocketService() => _instance;
 
   IO.Socket? _socket;
-
-  void init() {}
 
   void connect() {
     if (_socket != null) {
@@ -21,7 +20,7 @@ class SocketService {
     }
 
     _socket = IO.io(
-      '${ConstantString.backendUrl}/chat',
+      'http://127.0.0.1:5004',
       IO.OptionBuilder()
           .setTransports(['websocket'])
           .enableReconnection()
@@ -53,30 +52,30 @@ class SocketService {
 
   void _attachBusinessListeners() {
     _socket
-      ?..on('joinedRoom', _handleSimpleLog)
-      ..on('userJoined', _handleSimpleLog)
-      ..on('userLeft', _handleSimpleLog)
-      ..on('otherMessages', _handleOtherMessages);
+      ?..on('pong-test', _handleSimpleLog)
+      ..on("pos-event", _handlePosEvent);
   }
 
-  void _handleSimpleLog(dynamic data) => MyLog.debug('[Socket] $data');
+  void _handleSimpleLog(dynamic data) =>
+      MyLog.debug('[Socket _handleSimpleLog] $data');
+  void _handlePosEvent(dynamic data) async {
+    MyLog.debug('[Socket _handlePosEvent] $data');
+    PosHttpRequestModel request = PosHttpRequestModel.fromJson(data);
+    await PosConnectHttpService().sendPosHttpRequest(request);
+  }
 
-  void _handleOtherMessages(dynamic data) {}
+  void joinRoom() {
+    _emit('ping-test', {"message": "Postman'den merhaba!"});
+  }
 
-  void joinRoom({
-    required int otherCompanyId,
-    required Function() onNewMessage,
-  }) {
-    _emit('joinRoom', {'otherCompanyId': otherCompanyId});
-    _off('newMessage');
-    _on('newMessage', (data) {});
+  void posConfigure() {
+    _emit('pos-configure', {"message": "Postman'den merhaba!"});
   }
 
   void sendMessage({required int roomId, required String content}) =>
       _emit('sendMessage', {'roomId': roomId, 'content': content});
 
   void leaveRoom(int roomId) {
-    _emit('leaveRoom', {'roomId': roomId});
-    _off('newMessage');
+    _off('pong-test');
   }
 }
