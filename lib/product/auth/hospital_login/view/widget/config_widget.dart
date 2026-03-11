@@ -24,7 +24,7 @@ class _ConfigWidgetState extends State<ConfigWidget> {
                 tileMode: TileMode.mirror,
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [ConstColor.red, ConstColor.white, ConstColor.red,],
+                colors: [ConstColor.red, ConstColor.white, ConstColor.red],
               ),
               backgroundBlendMode: BlendMode.srcOver,
             ),

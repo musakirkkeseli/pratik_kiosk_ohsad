@@ -55,7 +55,7 @@ class PatientServices extends IPatientServices {
   postValidateIdentify(String tcNo) {
     return http.request<PatientValidateIdentityResponseModel>(
       requestFunction: () =>
-          http.post(validateIdentityPath, data: {'tcNo': tcNo}),
+          http.post(validateIdentityPath, data: {'tcNo': tcNo, "birthDate": "1998-11-09"}),
       fromJson: (json) => PatientValidateIdentityResponseModel.fromJson(
         json as Map<String, dynamic>,
       ),

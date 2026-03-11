@@ -11,6 +11,7 @@ import '../../../../core/utility/login_status_service.dart';
 import '../../../../core/utility/sentry_service.dart';
 import '../../../../core/widget/snackbar_service.dart';
 import '../../../../features/utility/enum/enum_general_state_status.dart';
+import '../../../../features/utility/socket_service.dart';
 import '../model/config_response_model.dart';
 import '../model/hospital_login_request_model.dart';
 import '../model/hospital_login_response_model.dart';
@@ -112,15 +113,16 @@ class HospitalLoginCubit extends BaseCubit<HospitalLoginState> {
       if (resp.success && resp.data is ConfigResponseModel) {
         ConfigResponseModel configResponseModel =
             resp.data ?? ConfigResponseModel();
-        
+
         // ✅ Sentry'ye hastane bilgilerini set et
-        final hospitalName = configResponseModel.hospitalName ?? 'Unknown Hospital';
+        final hospitalName =
+            configResponseModel.hospitalName ?? 'Unknown Hospital';
         SentryService().setHospitalContext(
           hospitalName: hospitalName,
           kioskDeviceId: kioskDeviceId,
         );
         _log.i('Sentry context set: $hospitalName - $kioskDeviceId');
-        
+
         safeEmit(
           state.copyWith(
             status: EnumGeneralStateStatus.success,
@@ -131,6 +133,9 @@ class HospitalLoginCubit extends BaseCubit<HospitalLoginState> {
         await Future.delayed(const Duration(milliseconds: 5000));
         final posConfig = configResponseModel.posConfig;
         if (posConfig is PosConfig) {
+          SocketService _socket = SocketService();
+          _socket.connect();
+          _socket.posConfigure();
           await PosService.instance.configure(posConfig, useMock: kDebugMode);
           safeEmit(state.copyWith(posConfig: posConfig));
           await posConfiguration();
