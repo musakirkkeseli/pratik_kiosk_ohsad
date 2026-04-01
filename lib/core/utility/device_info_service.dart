@@ -14,7 +14,8 @@ class DeviceInfoService {
   String? _deviceId;
   String? _deviceModel;
   String? _osVersion;
-  final fakeDeviceId = 'BP1A.250505.005';
+  // final fakeDeviceId = 'BP1A.250505.005';
+  final fakeDeviceId = 'TQ3C.230805.001.B2';
   // final fakeDeviceId = 'TKQ1.230110.001';
   // final fakeDeviceId = 'KIOSKPRIME';
 

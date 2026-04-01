@@ -135,7 +135,7 @@ class HospitalLoginCubit extends BaseCubit<HospitalLoginState> {
           // SocketService _socket = SocketService();
           // _socket.connect();
           // _socket.posConfigure();
-          await PosService.instance.configure(posConfig, useMock: kDebugMode);
+          await PosService.instance.configure(posConfig, useMock: true);
           safeEmit(state.copyWith(posConfig: posConfig));
           await posConfiguration();
         } else {
