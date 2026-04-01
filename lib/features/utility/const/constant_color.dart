@@ -5,6 +5,7 @@ class ConstColor {
   static const primaryColor = Colors.blue;
   static const white = Colors.white;
   static const primaryHospitalLoginColor = Color(0xFFBB1D22);
+  static const logoNavyColor = Color(0xFF1B3468); // BankoAsist logo rengi
   static const secondaryColor = Color(0xFFBB1D22);
   static const textfieldColor = Color(0xFFDFDFDF);
   static const infoCardColor = Color(0xFFE2E8F0);

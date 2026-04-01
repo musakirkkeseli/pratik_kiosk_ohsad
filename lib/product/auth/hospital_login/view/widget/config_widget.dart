@@ -24,7 +24,7 @@ class _ConfigWidgetState extends State<ConfigWidget> {
                 tileMode: TileMode.mirror,
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [ConstColor.red, ConstColor.white, ConstColor.red],
+                colors: [ConstColor.logoNavyColor, ConstColor.white, ConstColor.logoNavyColor],
               ),
               backgroundBlendMode: BlendMode.srcOver,
             ),
@@ -51,7 +51,7 @@ class _ConfigWidgetState extends State<ConfigWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image.asset(ConstantString.hospitalLogo, width: 100, height: 100),
+              Image.asset(ConstantString.bankoAsistLogo, width: 100, height: 100),
               Lottie.asset(
                 ConstantString.configSetting,
                 width: 180,

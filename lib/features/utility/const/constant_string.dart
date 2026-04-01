@@ -39,6 +39,8 @@ class ConstantString {
   static const appstoreDark = "assets/images/appstore_dark.png";
   static const googlePlayLight = "assets/images/google_play_light.png";
   static const googlePlayDark = "assets/images/google_play_dark.png";
+  static const bankoAsistLogo = "assets/images/BankoAsistLogo.png";
+
 
   // Localized Strings
 

@@ -9,7 +9,6 @@ import '../../../../../features/utility/const/constant_string.dart';
 import '../../../../../features/utility/custom_textfield_widget.dart';
 import '../../../../../features/utility/enum/enum_textformfield.dart';
 import '../../cubit/hospital_login_cubit.dart';
-import 'log_viewer_page.dart';
 
 class HospitalLoginWidget extends StatefulWidget {
   final String deviceId;
@@ -43,7 +42,11 @@ class _HospitalLoginWidgetState extends State<HospitalLoginWidget> {
                   tileMode: TileMode.mirror,
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [ConstColor.red, ConstColor.white, ConstColor.red],
+                  colors: [
+                    ConstColor.logoNavyColor,
+                    ConstColor.white,
+                    ConstColor.logoNavyColor,
+                  ],
                 ),
                 backgroundBlendMode: BlendMode.srcOver,
               ),
@@ -81,7 +84,7 @@ class _HospitalLoginWidgetState extends State<HospitalLoginWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          ConstantString.hospitalLogo,
+                          ConstantString.bankoAsistLogo,
                           width: 150,
                           height: 200,
                         ),
@@ -95,7 +98,7 @@ class _HospitalLoginWidgetState extends State<HospitalLoginWidget> {
                         ),
                         CustomButton(
                           label: ConstantString().signIn,
-                          backgroundColor: ConstColor.red,
+                          backgroundColor: ConstColor.logoNavyColor,
                           height: MediaQuery.of(context).size.height / 12,
                           borderRadius: 20,
                           onPressed: () {
