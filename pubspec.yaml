@@ -20,6 +20,7 @@ dependencies:
   #service
   connectivity_plus: ^6.1.5
   easy_localization: ^3.0.3
+  pdf: ^3.11.1
   pdfx: ^2.7.0
   path_provider: ^2.1.4
   device_info_plus: ^12.2.0
@@ -82,3 +83,4 @@ flutter:
     - assets/lang/
     - assets/gif/
     - assets/images/
+    - assets/sigorta/

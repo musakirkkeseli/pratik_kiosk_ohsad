@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:kiosk/features/utility/extension/color_extension.dart';
+import 'package:kiosk/features/widget/insurance_logo_carousel.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/utility/dynamic_theme_provider.dart';
@@ -73,7 +74,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(height: 80),
+                  const SizedBox(height: 40),
+                  const InsuranceLogoCarousel(),
+                  const SizedBox(height: 40),
                   _startWidget(context, primaryColor),
                   const SizedBox(height: 40),
                   LanguageButtonWidget2(cubitContext: context),
@@ -118,7 +121,7 @@ Widget _buildStartButton(BuildContext context, Color primaryColor) {
           border: Border.all(color: primaryColor, width: 4),
           boxShadow: [
             BoxShadow(
-              color: primaryColor.withOpacity(0.3),
+              color: primaryColor.withValues(alpha: 0.3),
               blurRadius: 20,
               spreadRadius: 5,
             ),
@@ -259,13 +262,13 @@ Widget _buildActionCard(
 }
 
 Widget _slider(BuildContext context) {
+  final sliderState = context.findAncestorStateOfType<_WelcomeScreenState>();
   return BlocBuilder<PatientLoginCubit, PatientLoginState>(
-    builder: (context, state) {
+    builder: (_, state) {
       final sliders = state.sliders;
-      final _sliderState = context.findAncestorStateOfType<_WelcomeScreenState>();
-      if (_sliderState != null) {
+      if (sliderState != null && sliders.isNotEmpty) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          _sliderState._startAutoSlide(sliders.length);
+          sliderState._startAutoSlide(sliders.length);
         });
       }
       if (sliders.isEmpty) {
@@ -284,10 +287,10 @@ Widget _slider(BuildContext context) {
         height: 200,
         width: double.infinity,
         child: PageView(
-          controller: _sliderState?._pageController,
+          controller: sliderState?._pageController,
           onPageChanged: (index) {
-            if (_sliderState != null) {
-              _sliderState._currentPage = index;
+            if (sliderState != null) {
+              sliderState._currentPage = index;
             }
           },
           children: sliders.map((slider) {
@@ -320,7 +323,7 @@ Widget _mobilAppQR(String qrCodeUrl) {
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                color: ConstColor.black.withOpacity(0.1),
+                color: ConstColor.black.withValues(alpha: 0.1),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
