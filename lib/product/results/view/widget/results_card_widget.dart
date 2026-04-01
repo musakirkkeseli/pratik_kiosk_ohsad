@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../../features/utility/const/constant_color.dart';
 import '../../../../features/utility/extension/text_theme_extension.dart';
 import '../../../../features/utility/navigation_service.dart';
-import 'results_pdf_widget.dart';
 
 class ResultsCard extends StatelessWidget {
   const ResultsCard({super.key});

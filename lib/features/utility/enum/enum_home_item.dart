@@ -5,6 +5,7 @@ import 'package:iconify_flutter/icons/mdi.dart';
 import 'package:kiosk/features/utility/navigation_service.dart';
 
 import '../../../product/appointments/view/appointments_view.dart';
+import '../../../product/home/view/widget/results_button_widget.dart';
 import '../../../product/home/view/widget/section_button_widget.dart';
 import '../../../product/questionnaire/view/questionnaire_view.dart';
 import '../../../product/results/view/results_view.dart';
@@ -78,7 +79,7 @@ enum EnumHomeItem {
       case EnumHomeItem.registration:
         return SectionButtonWidget();
       case EnumHomeItem.results:
-        return ResultsView();
+        return ResultsButtonWidget();
       case EnumHomeItem.qr:
         return QuestionnaireView();
       // case EnumHomeItem.patientTransactionManagment:

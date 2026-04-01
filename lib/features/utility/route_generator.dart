@@ -5,6 +5,7 @@ import 'package:kiosk/product/patient_transaction_management/view/patient_transa
 import '../../core/widget/login_aware_widget.dart';
 import '../../product/patient_registration_procedures/view/patient_registration_procedures_view.dart';
 import '../../product/doctor/view/doctors_view.dart';
+import '../../product/results/view/results_view.dart';
 import '../../product/results/view/widget/results_pdf_widget.dart';
 import '../../product/section/view/section_view.dart';
 
@@ -42,6 +43,11 @@ class RouteGenerator {
             sectionId: args["sectionId"] ?? "0",
             isAppointment: true,
           ),
+          settings: RouteSettings(name: settings.name),
+        );
+      case "ResultsView":
+        return MaterialPageRoute(
+          builder: (context) => ResultsView(),
           settings: RouteSettings(name: settings.name),
         );
       case "ResultsPdfWidget":
