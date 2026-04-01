@@ -4,6 +4,7 @@ import '../../../core/exception/network_exception.dart';
 import '../../../core/utility/analytics_service.dart';
 import '../../../core/utility/base_cubit.dart';
 import '../../../core/utility/logger_service.dart';
+import '../../../core/utility/timeout_cancel_context_service.dart';
 import '../../../core/utility/user_login_status_service.dart';
 import '../../../core/widget/snackbar_service.dart';
 import '../../../features/model/patient_price_detail_model.dart';
@@ -42,9 +43,23 @@ class PatientRegistrationProceduresCubit
            currentStep: startStep,
            model: model ?? PatientRegistrationProceduresModel(),
          ),
-       );
+       ) {
+    _syncTimeoutCancelContext();
+  }
 
   final MyLog _log = MyLog('PatientRegistrationProceduresCubit');
+
+  void _syncTimeoutCancelContext() {
+    TimeoutCancelContextService().update(
+      isPriceStep: state.currentStep == EnumPatientRegistrationProcedures.price,
+      patientId: state.model.patientId,
+    );
+  }
+
+  void _emitAndSync(PatientRegistrationProceduresState newState) {
+    safeEmit(newState);
+    _syncTimeoutCancelContext();
+  }
 
   void _trackButton(String name, {Map<String, dynamic>? extra}) {
     AnalyticsService().trackButtonClicked(
@@ -60,14 +75,14 @@ class PatientRegistrationProceduresCubit
       final response = await PosService.instance.pairing();
 
       if (response.success) {
-        safeEmit(
+        _emitAndSync(
           state.copyWith(
             // status: EnumGeneralStateStatus.success,
             isConnettedPos: true,
           ),
         );
       } else {
-        safeEmit(
+        _emitAndSync(
           state.copyWith(
             // status: EnumGeneralStateStatus.success,
             isConnettedPos: false,
@@ -76,7 +91,7 @@ class PatientRegistrationProceduresCubit
       }
     } on PosException catch (e) {
       _log.e('PosException: $e');
-      safeEmit(
+      _emitAndSync(
         state.copyWith(
           // status: EnumGeneralStateStatus.success,
           isConnettedPos: false,
@@ -84,7 +99,7 @@ class PatientRegistrationProceduresCubit
       );
     } catch (e) {
       _log.e('Exception: $e');
-      safeEmit(
+      _emitAndSync(
         state.copyWith(
           // status: EnumGeneralStateStatus.success,
           isConnettedPos: false,
@@ -411,6 +426,7 @@ class PatientRegistrationProceduresCubit
           res.data!.patientId is String) {
         model.patientId = res.data!.patientId ?? "";
         model.patientTransactionId = res.data!.patientTransactionId.toString();
+        _syncTimeoutCancelContext();
         fetchPatientPrice(model);
         // safeEmit(
         //   state.copyWith(status: EnumGeneralStateStatus.success, model: model),
@@ -715,6 +731,7 @@ class PatientRegistrationProceduresCubit
     if (patientId is String) {
       try {
         await service.postPatientTransactionCancel(patientId);
+        TimeoutCancelContextService().clear();
       } on NetworkException catch (e) {
         safeEmit(
           state.copyWith(
@@ -737,7 +754,7 @@ class PatientRegistrationProceduresCubit
     final currentStep = state.currentStep;
     if (currentStep.index <
         EnumPatientRegistrationProcedures.values.length - 1) {
-      safeEmit(
+      _emitAndSync(
         state.copyWith(
           currentStep:
               EnumPatientRegistrationProcedures.values[currentStep.index + 1],
@@ -779,12 +796,18 @@ class PatientRegistrationProceduresCubit
         break;
     }
     if (currentStep.index > 0) {
-      safeEmit(
+      _emitAndSync(
         state.copyWith(
           currentStep:
               EnumPatientRegistrationProcedures.values[currentStep.index - 1],
         ),
       );
     }
+  }
+
+  @override
+  Future<void> close() {
+    TimeoutCancelContextService().clear();
+    return super.close();
   }
 }

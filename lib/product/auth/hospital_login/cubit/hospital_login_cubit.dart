@@ -133,9 +133,9 @@ class HospitalLoginCubit extends BaseCubit<HospitalLoginState> {
         await Future.delayed(const Duration(milliseconds: 5000));
         final posConfig = configResponseModel.posConfig;
         if (posConfig is PosConfig) {
-          SocketService _socket = SocketService();
-          _socket.connect();
-          _socket.posConfigure();
+          // SocketService _socket = SocketService();
+          // _socket.connect();
+          // _socket.posConfigure();
           await PosService.instance.configure(posConfig, useMock: kDebugMode);
           safeEmit(state.copyWith(posConfig: posConfig));
           await posConfiguration();

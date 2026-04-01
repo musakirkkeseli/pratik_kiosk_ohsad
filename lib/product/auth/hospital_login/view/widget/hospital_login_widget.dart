@@ -24,10 +24,10 @@ class _HospitalLoginWidgetState extends State<HospitalLoginWidget> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController userNameController = kReleaseMode
       ? TextEditingController()
-      : TextEditingController(text: "prime");
+      : TextEditingController(text: "buhara");
   final TextEditingController passwordController = kReleaseMode
       ? TextEditingController()
-      : TextEditingController(text: "prime41");
+      : TextEditingController(text: "buhara");
 
   @override
   Widget build(BuildContext context) {
