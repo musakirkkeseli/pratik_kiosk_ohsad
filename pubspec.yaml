@@ -57,6 +57,12 @@ dependencies:
   dio: ^5.9.0
   socket_io_client: ^3.1.4
 
+  # pdf
+  syncfusion_flutter_pdfviewer: ^31.2.12
+  syncfusion_pdfviewer_linux: ^31.2.12
+  syncfusion_pdfviewer_macos: ^31.2.12
+  syncfusion_pdfviewer_windows: ^31.2.12
+
   # my packages
   pratik_pos_integration:
     git:
