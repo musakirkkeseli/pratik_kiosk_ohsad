@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../features/utility/const/constant_color.dart';
 import '../../../../features/utility/extension/text_theme_extension.dart';
+import '../../../../features/utility/navigation_service.dart';
+import 'results_pdf_widget.dart';
 
 class ResultsCard extends StatelessWidget {
   const ResultsCard({super.key});
@@ -21,57 +23,62 @@ class ResultsCard extends StatelessWidget {
           ),
         ],
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Kan Tahlili",
-                  style: context.sectionTitle.copyWith(fontSize: 24),
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildInfoRow(
-                        context,
-                        label: 'Tarih',
-                        value: "12.08.2024",
-                      ),
-                    ],
+      child: InkWell(
+        onTap: () {
+          NavigationService.ns.routeTo("ResultsPdfWidget");
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Kan Tahlili",
+                    style: context.sectionTitle.copyWith(fontSize: 24),
                   ),
-                ),
+                ],
+              ),
+              const SizedBox(height: 24),
 
-                const SizedBox(width: 32),
-
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildInfoRow(
-                        context,
-                        label: 'Durum',
-                        value: "Sonuç Bekleniyor",
-                      ),
-                      const SizedBox(height: 16),
-                    ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildInfoRow(
+                          context,
+                          label: 'Tarih',
+                          value: "12.08.2024",
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+
+                  const SizedBox(width: 32),
+
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildInfoRow(
+                          context,
+                          label: 'Durum',
+                          value: "Sonuç Bekleniyor",
+                        ),
+                        const SizedBox(height: 16),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
