@@ -156,5 +156,7 @@
   "controlInspectionProcessCreate": "Create Control Inspection",
   "completedSuccessfully": "Completed Successfully",
   "controlInspectionProcessMessage": "Since 10 days have not passed since the file created for you on {} with our doctor {}, a follow-up examination will be performed",
-  "controlInspectionProcessAppointmentMessage": "Your follow-up examination will be processed based on your appointment dated {}"
+  "controlInspectionProcessAppointmentMessage": "Your follow-up examination will be processed based on your appointment dated {}",
+  "showResults": "Show Results",
+  "medicalResults": "Medical Results"
 }

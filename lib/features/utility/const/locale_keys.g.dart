@@ -161,5 +161,7 @@ abstract class  LocaleKeys {
   static const completedSuccessfully = 'completedSuccessfully';
   static const controlInspectionProcessMessage = 'controlInspectionProcessMessage';
   static const controlInspectionProcessAppointmentMessage = 'controlInspectionProcessAppointmentMessage';
+  static const showResults = 'showResults';
+  static const medicalResults = 'medicalResults';
 
 }

@@ -41,7 +41,6 @@ class ConstantString {
   static const googlePlayDark = "assets/images/google_play_dark.png";
   static const bankoAsistLogo = "assets/images/BankoAsistLogo.png";
 
-
   // Localized Strings
 
   String isThisNumberYoursWithPhone(String phoneNumber) =>
@@ -232,4 +231,6 @@ class ConstantString {
   String controlInspectionProcessCreate =
       LocaleKeys.controlInspectionProcessCreate.locale;
   String completedSuccessfully = LocaleKeys.completedSuccessfully.locale;
+  String showResults = LocaleKeys.showResults.locale;
+  String medicalResults = LocaleKeys.medicalResults.locale;
 }

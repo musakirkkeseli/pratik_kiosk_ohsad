@@ -26,7 +26,7 @@ enum EnumHomeItem {
       case EnumHomeItem.registration:
         return ConstantString().registration;
       case EnumHomeItem.results:
-        return ConstantString().results;
+        return ConstantString().medicalResults;
       case EnumHomeItem.qr:
         return ConstantString().survey;
       // case EnumHomeItem.patientTransactionManagment:

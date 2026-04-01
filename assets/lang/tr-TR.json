@@ -156,5 +156,7 @@
   "controlInspectionProcessCreate": "Kontrol Muayenesi Oluştur",
   "completedSuccessfully": "Başarıyla Tamamlandı",
   "controlInspectionProcessMessage": "{} tarihinde {} doktorumuza oluşturulmuş dosyanızın üzerinden 10 gün geçmediği için kontrol muayenesi yapılacaktır",
-  "controlInspectionProcessAppointmentMessage": "Kontrol Muayeneniz {} tarihli bir randevunuz üzerine işlenecektir"
+  "controlInspectionProcessAppointmentMessage": "Kontrol Muayeneniz {} tarihli bir randevunuz üzerine işlenecektir",
+  "showResults": "Sonuç Gösterme",
+  "medicalResults": "Tıbbi Sonuçlar"
 }

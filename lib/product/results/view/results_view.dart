@@ -24,7 +24,7 @@ class _ResultsViewState extends State<ResultsView> {
           ResultsCubit(ResultsService(UserHttpService()))..fetchResults(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(ConstantString().results),
+          title: Text(ConstantString().medicalResults),
           centerTitle: true,
         ),
         body: BlocBuilder<ResultsCubit, ResultsState>(
@@ -57,10 +57,8 @@ class _ResultsViewState extends State<ResultsView> {
                         doctorId: result.doctorID,
                         departmentName: result.departmentName ?? '',
                         onTap: () {
-                          print('Card tapped - reportGUID: ${result.reportGUID}');
                           if (result.reportGUID != null &&
                               result.reportGUID!.isNotEmpty) {
-                            print('Navigating to PDF view...');
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => ResultsPdfWidget(
@@ -70,7 +68,6 @@ class _ResultsViewState extends State<ResultsView> {
                               ),
                             );
                           } else {
-                            print('reportGUID is null or empty');
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Rapor bilgisi bulunamadı'),
@@ -87,7 +84,7 @@ class _ResultsViewState extends State<ResultsView> {
               case EnumGeneralStateStatus.failure:
                 return Center(
                   child: Text(
-                    state.message ?? 'Bir hata oluştu',
+                    state.message ?? ConstantString().unexpectedError,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 );

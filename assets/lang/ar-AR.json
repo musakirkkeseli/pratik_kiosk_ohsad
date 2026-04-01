@@ -157,5 +157,7 @@
   "controlInspectionProcessCreate": "إنشاء فحص التحكم",
   "completedSuccessfully": "اكتمل بنجاح",
   "controlInspectionProcessMessage": "نظرًا لعدم مرور 10 أيام على الملف الذي تم إنشاؤه لك بتاريخ {} لدى طبيبنا {}، سيتم إجراء فحص متابعة",
-  "controlInspectionProcessAppointmentMessage": "سيتم معالجة فحص المتابعة الخاص بك بناءً على موعدك بتاريخ {}"
+  "controlInspectionProcessAppointmentMessage": "سيتم معالجة فحص المتابعة الخاص بك بناءً على موعدك بتاريخ {}",
+  "showResults": "عرض النتائج",
+  "medicalResults": "النتائج الطبية"
 }

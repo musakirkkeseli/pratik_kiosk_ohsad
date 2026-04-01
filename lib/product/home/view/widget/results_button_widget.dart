@@ -41,7 +41,7 @@ class _ResultsButtonWidgetState extends State<ResultsButtonWidget> {
                   ),
                   const SizedBox(width: 16),
                   Text(
-                    ConstantString().results,
+                    ConstantString().showResults,
                     style: context.buttonText.copyWith(
                       color: ConstColor.white,
                       fontSize: 25,
