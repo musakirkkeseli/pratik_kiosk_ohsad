@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/widget/custom_image.dart';
 import '../../../../features/utility/const/constant_color.dart';
 import '../../../../features/utility/const/constant_string.dart';
 import '../../../../features/utility/extension/text_theme_extension.dart';
@@ -10,6 +11,7 @@ class AppointmentCard extends StatelessWidget {
   final String branchName;
   final String appointmentTime;
   final String doctorName;
+  final String? doctorId;
   final String appointmentID;
   final String guid;
   final VoidCallback? onTap;
@@ -21,6 +23,7 @@ class AppointmentCard extends StatelessWidget {
     required this.departmentName,
     required this.appointmentTime,
     required this.doctorName,
+    this.doctorId,
     required this.branchName,
     required this.appointmentID,
     required this.guid,
@@ -82,6 +85,83 @@ class AppointmentCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        if (doctorId != null && doctorId!.isNotEmpty)
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 100,
+                                    height: 100,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        color: context.primaryColor.withOpacity(
+                                          0.1,
+                                        ),
+                                        width: 2,
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: context.primaryColor
+                                              .withOpacity(0.05),
+                                          blurRadius: 8,
+                                          offset: const Offset(0, 3),
+                                        ),
+                                      ],
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: CustomImage.image(
+                                        "https://kiosk.prtk.gen.tr/assets/images/doctor/$doctorId.png",
+                                        CustomImageType.doctor,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+
+                                  SizedBox(width: 16),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        ConstantString().doctor,
+                                        style: context.bodySecondary.copyWith(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      Text(
+                                        doctorName,
+                                        style: context.primaryText.copyWith(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w700,
+                                          height: 1.2,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )
+                        else
+                          _buildInfoRow(
+                            context,
+                            label: ConstantString().doctor,
+                            value: doctorName,
+                          ),
+                        const SizedBox(height: 16),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         _buildInfoRow(
                           context,
                           label: ConstantString().hour,
@@ -98,20 +178,6 @@ class AppointmentCard extends StatelessWidget {
                   ),
 
                   const SizedBox(width: 32),
-
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildInfoRow(
-                          context,
-                          label: ConstantString().doctor,
-                          value: doctorName,
-                        ),
-                        const SizedBox(height: 16),
-                      ],
-                    ),
-                  ),
                 ],
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.015),

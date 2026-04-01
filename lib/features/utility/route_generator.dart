@@ -51,9 +51,12 @@ class RouteGenerator {
           settings: RouteSettings(name: settings.name),
         );
       case "ResultsPdfWidget":
-        // final args = settings.arguments as Map;
+        final args = settings.arguments as Map;
         return MaterialPageRoute(
-          builder: (context) => ResultsPdfWidget(),
+          builder: (context) => ResultsPdfWidget(
+            reportGUID: args["reportGUID"] ?? "",
+            reportName: args["reportName"] ?? "Sonuç",
+          ),
           settings: RouteSettings(name: settings.name),
         );
       case "PatientTransactionManagementView":

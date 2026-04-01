@@ -123,6 +123,7 @@ class _AppointmentsViewState extends State<AppointmentsView> {
                             departmentName: appointment.departmentName ?? "",
                             appointmentTime: appointment.appointmentTime ?? "",
                             doctorName: appointment.doctorName ?? "",
+                            doctorId: appointment.doctorID,
                             appointmentID: appointment.appointmentID ?? "",
                             guid: appointment.gUID ?? "",
                             isRegisterable: isRegisterable,
