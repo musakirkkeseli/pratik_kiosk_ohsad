@@ -76,13 +76,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 60),
                   const InsuranceLogoCarousel(),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 90),
                   _startWidget(context, primaryColor),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 80),
                   LanguageButtonWidget2(cubitContext: context),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 80),
                   _mobilAppQR(qrCodeUrl),
                 ],
               ),
