@@ -5,9 +5,9 @@ import 'package:kiosk/features/utility/const/constant_string.dart';
 
 import '../../../patient_registration_procedures/cubit/patient_registration_procedures_cubit.dart';
 import '../../../../core/widget/snackbar_service.dart';
-import '../../../../features/widget/item_button.dart';
 import '../../../make_appointment/view/appointment_slot_view.dart';
 import '../../model/doctor_model.dart';
+import 'doctor_item_button.dart';
 
 class DoctorListTileWidget extends StatelessWidget {
   final List<DoctorItems> doctorItemList;
@@ -26,8 +26,10 @@ class DoctorListTileWidget extends StatelessWidget {
       itemCount: doctorItemList.length,
       itemBuilder: (context, index) {
         DoctorItems doctor = doctorItemList[index];
-        return ItemButton(
+        return DoctorItemButton(
           title: "${doctor.doctorTitle} ${doctor.doctorName}",
+          doctorImageUrl:
+              "https://kiosk.prtk.gen.tr/assets/images/doctor/${doctor.doctorId ?? ''}.png",
           onTap: () {
             if (isAppointment) {
               MyLog.debug(
