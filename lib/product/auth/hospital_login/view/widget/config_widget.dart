@@ -51,7 +51,14 @@ class _ConfigWidgetState extends State<ConfigWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Image.asset(ConstantString.bankoAsistLogo, width: 200, height: 200),
+              Center(
+                child: Image.asset(
+                  ConstantString.bankoAsistLogo,
+                  width: 300,
+                  height: 300,
+                  fit: BoxFit.contain,
+                ),
+              ),
               Lottie.asset(
                 ConstantString.configSetting,
                 width: 180,

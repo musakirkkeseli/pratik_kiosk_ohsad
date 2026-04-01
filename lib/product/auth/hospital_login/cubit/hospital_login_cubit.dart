@@ -11,7 +11,6 @@ import '../../../../core/utility/login_status_service.dart';
 import '../../../../core/utility/sentry_service.dart';
 import '../../../../core/widget/snackbar_service.dart';
 import '../../../../features/utility/enum/enum_general_state_status.dart';
-import '../../../../features/utility/socket_service.dart';
 import '../model/config_response_model.dart';
 import '../model/hospital_login_request_model.dart';
 import '../model/hospital_login_response_model.dart';

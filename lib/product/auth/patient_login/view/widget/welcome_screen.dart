@@ -22,11 +22,11 @@ class WelcomeScreen extends StatefulWidget {
   State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
-
 class _WelcomeScreenState extends State<WelcomeScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
   Timer? _sliderTimer;
+  int _lastSliderCount = 0;
 
   @override
   void initState() {
@@ -44,18 +44,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   void _startAutoSlide(int itemCount) {
-    _sliderTimer?.cancel();
-    if (itemCount <= 1) return;
+    if (_sliderTimer != null || itemCount <= 1) {
+      return;
+    }
     _sliderTimer = Timer.periodic(const Duration(seconds: 4), (timer) {
-      if (!mounted) return;
-      setState(() {
-        _currentPage = (_currentPage + 1) % itemCount;
-        _pageController.animateToPage(
-          _currentPage,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.easeInOut,
-        );
-      });
+      if (!mounted) {
+        timer.cancel();
+        return;
+      }
+      _currentPage = (_currentPage + 1) % itemCount;
+      _pageController.animateToPage(
+        _currentPage,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
     });
   }
 
@@ -69,7 +71,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       backgroundColor: ConstColor.white,
       body: Column(
         children: [
-          _slider(context),
+          _slider(context, this),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -261,16 +263,25 @@ Widget _buildActionCard(
   );
 }
 
-Widget _slider(BuildContext context) {
-  final sliderState = context.findAncestorStateOfType<_WelcomeScreenState>();
+Widget _slider(BuildContext context, _WelcomeScreenState sliderState) {
   return BlocBuilder<PatientLoginCubit, PatientLoginState>(
     builder: (_, state) {
       final sliders = state.sliders;
-      if (sliderState != null && sliders.isNotEmpty) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          sliderState._startAutoSlide(sliders.length);
-        });
+      print(
+        '🔥 _slider builder - sliders.length: ${sliders.length}, _lastSliderCount: ${sliderState._lastSliderCount}',
+      );
+
+      // Timer'ı başlat (sadece slider sayısı değiştiyse ve birden fazlaysa)
+      if (sliders.isNotEmpty && sliders.length > 1) {
+        if (sliderState._lastSliderCount != sliders.length) {
+          print('🔥 Slider count changed! Starting auto slide...');
+          sliderState._lastSliderCount = sliders.length;
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            sliderState._startAutoSlide(sliders.length);
+          });
+        }
       }
+
       if (sliders.isEmpty) {
         return Container(
           height: 200,
@@ -287,11 +298,9 @@ Widget _slider(BuildContext context) {
         height: 200,
         width: double.infinity,
         child: PageView(
-          controller: sliderState?._pageController,
+          controller: sliderState._pageController,
           onPageChanged: (index) {
-            if (sliderState != null) {
-              sliderState._currentPage = index;
-            }
+            sliderState._currentPage = index;
           },
           children: sliders.map((slider) {
             return CustomImage.image(
