@@ -86,7 +86,7 @@ class _InsuranceLogoCarouselState extends State<InsuranceLogoCarousel> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
+      height: 110,
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.grey.shade50,
@@ -117,12 +117,12 @@ class _InsuranceLogoCarouselState extends State<InsuranceLogoCarousel> {
           itemBuilder: (context, index) {
             final logo = _logos[index % _logos.length];
             return Container(
-              width: 150,
+              width: 180,
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Center(
                 child: Image.asset(
                   logo,
-                  height: 55,
+                  height: 75,
                   fit: BoxFit.contain,
                 ),
               ),

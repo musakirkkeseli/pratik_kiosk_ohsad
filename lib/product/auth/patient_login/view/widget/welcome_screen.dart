@@ -267,14 +267,10 @@ Widget _slider(BuildContext context, _WelcomeScreenState sliderState) {
   return BlocBuilder<PatientLoginCubit, PatientLoginState>(
     builder: (_, state) {
       final sliders = state.sliders;
-      print(
-        '🔥 _slider builder - sliders.length: ${sliders.length}, _lastSliderCount: ${sliderState._lastSliderCount}',
-      );
+     
 
-      // Timer'ı başlat (sadece slider sayısı değiştiyse ve birden fazlaysa)
       if (sliders.isNotEmpty && sliders.length > 1) {
         if (sliderState._lastSliderCount != sliders.length) {
-          print('🔥 Slider count changed! Starting auto slide...');
           sliderState._lastSliderCount = sliders.length;
           WidgetsBinding.instance.addPostFrameCallback((_) {
             sliderState._startAutoSlide(sliders.length);
@@ -290,12 +286,13 @@ Widget _slider(BuildContext context, _WelcomeScreenState sliderState) {
           child: CustomImage.image(
             "https://kiosk.prtk.gen.tr/assets/images/sliders/kioskSlider.png",
             CustomImageType.standart,
+            fit: BoxFit.cover,
           ),
         );
       }
 
       return SizedBox(
-        height: 200,
+        height: 220,
         width: double.infinity,
         child: PageView(
           controller: sliderState._pageController,
@@ -306,6 +303,7 @@ Widget _slider(BuildContext context, _WelcomeScreenState sliderState) {
             return CustomImage.image(
               slider.path ?? "",
               CustomImageType.standart,
+              fit: BoxFit.cover,
             );
           }).toList(),
         ),
