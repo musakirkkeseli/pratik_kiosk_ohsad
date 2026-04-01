@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../features/utility/const/constant_color.dart';
 
-enum CustomImageType { standart }
+enum CustomImageType { standart, doctor }
 
 class CustomImage {
   static Widget image(
@@ -53,7 +53,19 @@ class CustomImage {
       fit: fit, // fit özelliğini kullanıyoruz
       errorBuilder:
           (BuildContext context, Object exception, StackTrace? stackTrace) {
-            return const Icon(Icons.error, color: ConstColor.red);
+            switch (type) {
+              case CustomImageType.doctor:
+                return Image(
+                  image: const CachedNetworkImageProvider(
+                    "https://kiosk.prtk.gen.tr/assets/images/doctor/default.png",
+                  ),
+                  fit: fit,
+                  errorBuilder: (_, __, ___) =>
+                      const Icon(Icons.person, color: ConstColor.grey),
+                );
+              default:
+                return const Icon(Icons.error, color: ConstColor.red);
+            }
           },
     );
   }
