@@ -7,15 +7,16 @@ import 'package:kiosk/features/utility/navigation_service.dart';
 import '../../../product/appointments/view/appointments_view.dart';
 import '../../../product/home/view/widget/section_button_widget.dart';
 import '../../../product/questionnaire/view/questionnaire_view.dart';
+import '../../../product/results/view/results_view.dart';
 import '../const/constant_string.dart';
 import '../extension/color_extension.dart';
 
 enum EnumHomeItem {
   appointments,
   registration,
+  results,
   // patientTransactionManagment,
   qr;
-  // results;
 
   String get label {
     switch (this) {
@@ -23,6 +24,8 @@ enum EnumHomeItem {
         return ConstantString().appointmentRegistration;
       case EnumHomeItem.registration:
         return ConstantString().registration;
+      case EnumHomeItem.results:
+        return ConstantString().results;
       case EnumHomeItem.qr:
         return ConstantString().survey;
       // case EnumHomeItem.patientTransactionManagment:
@@ -40,6 +43,11 @@ enum EnumHomeItem {
       case EnumHomeItem.registration:
         return Iconify(
           MaterialSymbols.holiday_village_rounded,
+          color: context.primaryColor,
+        );
+      case EnumHomeItem.results:
+        return Iconify(
+          MaterialSymbols.medication_liquid_outline_rounded,
           color: context.primaryColor,
         );
       case EnumHomeItem.qr:
@@ -69,6 +77,8 @@ enum EnumHomeItem {
         return AppointmentsView();
       case EnumHomeItem.registration:
         return SectionButtonWidget();
+      case EnumHomeItem.results:
+        return ResultsView();
       case EnumHomeItem.qr:
         return QuestionnaireView();
       // case EnumHomeItem.patientTransactionManagment:

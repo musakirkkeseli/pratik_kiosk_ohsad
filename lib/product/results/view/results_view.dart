@@ -1,17 +1,17 @@
-// import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
-// import 'widget/results_card_widget.dart';
+import 'widget/results_card_widget.dart';
 
-// class ResultsView extends StatefulWidget {
-//   const ResultsView({super.key});
+class ResultsView extends StatefulWidget {
+  const ResultsView({super.key});
 
-//   @override
-//   State<ResultsView> createState() => _ResultsViewState();
-// }
+  @override
+  State<ResultsView> createState() => _ResultsViewState();
+}
 
-// class _ResultsViewState extends State<ResultsView> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return ResultsCard();
-//   }
-// }
+class _ResultsViewState extends State<ResultsView> {
+  @override
+  Widget build(BuildContext context) {
+    return ResultsCard();
+  }
+}
