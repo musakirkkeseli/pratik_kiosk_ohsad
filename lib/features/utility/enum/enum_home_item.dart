@@ -8,7 +8,6 @@ import '../../../product/appointments/view/appointments_view.dart';
 import '../../../product/home/view/widget/results_button_widget.dart';
 import '../../../product/home/view/widget/section_button_widget.dart';
 import '../../../product/questionnaire/view/questionnaire_view.dart';
-import '../../../product/results/view/results_view.dart';
 import '../const/constant_string.dart';
 import '../extension/color_extension.dart';
 
